@@ -1,0 +1,18 @@
+<%= form_with model: [:admin, payment], local: true, class: "mb-5" do |f| %>
+  <div class="row">
+    <div class="offset-lg-3 col-lg-6">
+      <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
+        <%= f.label :total %>
+        <%= f.text_field :total, class: "form-control #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:total].present? %>
+    	    <div class="invalid-feedback">
+    	      <%= payment.errors[:total].join(", ") %>
+    	    </div>
+        <% end %>
+      </div>
+    
+      <%= link_to I18n.t('text.cancel'), admin_payments_path, class: "btn btn-link text-danger" %>
+      <%= f.submit class: "btn btn-primary float-right" %>
+    </div>
+  </div>
+<% end %>

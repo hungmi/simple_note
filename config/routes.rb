@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  get 'admin', to: redirect('/admin/users')
+  get 'admin', to: redirect('/admin/payments')
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-namespace :admin do
+	namespace :admin do
+		resources :payments
 		resources :projects
 		resources :periodic_payments
 		resources :notebooks
-		resources :users
-  resources :users
-  get 'signin', to: 'sessions#new'
-  post 'signin', to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
-end
+	  resources :users
+	  get 'signin', to: 'sessions#new'
+	  post 'signin', to: 'sessions#create'
+	  delete 'logout', to: 'sessions#destroy'
+	end
 end

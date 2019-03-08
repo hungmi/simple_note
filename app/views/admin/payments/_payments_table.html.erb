@@ -1,0 +1,22 @@
+<table class="table table-hover" id="js-payments-tablesort">
+	<thead>
+		<tr>
+			<th><%= Payment.human_attribute_name("total") %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% payments.map do |payment| %>
+			<tr>
+				<td><%= payment.total %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+		new Tablesort(document.getElementById('js-payments-tablesort'), {
+	    descending: true
+	  });
+	})
+</script>

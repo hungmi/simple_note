@@ -1,0 +1,22 @@
+<div class="col-sm-6 col-md-4 mb-4" id="payment-<%= payment.id %>">
+	<div class="card p-3">
+		<div class="list-group list-group-flush">
+		  <li class="list-group-item flex-column align-items-start">
+		    <div class="d-flex w-100 justify-content-between">
+		      <h5 class="mb-1"><%= Payment.human_attribute_name("total") %></h5>
+		    </div>
+		    <p class="mb-1">
+		    	<% if payment.total.present? %>
+	          <%= payment.total %>
+	        <% else %>
+	          <span class="text-muted"><%= I18n.t("text.attr_no_value") %></span>
+	        <% end %>
+	      </p>
+		  </li>
+		  <li class="list-group-item flex-column align-items-start">
+	      <%= link_to I18n.t('text.edit'), edit_admin_payment_path(payment), class: "btn btn-primary" %>
+	      <%= link_to I18n.t('text.destroy'), [:admin, payment], method: :delete, data: { confirm: I18n.t("text.confirm_destroy") }, class: "btn btn-danger btn-sm float-right" %>
+	    </li>
+		</div>
+	</div>
+</div>

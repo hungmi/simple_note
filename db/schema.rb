@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_08_144229) do
+ActiveRecord::Schema.define(version: 2019_03_08_144937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,8 +48,14 @@ ActiveRecord::Schema.define(version: 2019_03_08_144229) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.decimal "total", precision: 12, scale: 3
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "periodic_payments", force: :cascade do |t|
-    t.decimal "total", precision: 9, scale: 3
+    t.decimal "total", precision: 12, scale: 3
     t.date "schedule_on", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

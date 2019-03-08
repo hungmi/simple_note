@@ -30,6 +30,12 @@ zh-TW:
       project: 專案
       user: 使用者
     attributes:
+      payment:
+        total: 金額
+        recorder_id: 記帳人
+        periodic_payment_id: 週期名稱
+        notebook_id: 賬本
+        project_id: 專案名稱
       project:
         name: 專案名稱
       periodic_payment:
