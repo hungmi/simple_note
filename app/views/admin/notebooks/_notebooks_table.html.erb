@@ -1,0 +1,22 @@
+<table class="table table-hover" id="js-notebooks-tablesort">
+	<thead>
+		<tr>
+			<th><%= Notebook.human_attribute_name("name") %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% notebooks.map do |notebook| %>
+			<tr>
+				<td><%= notebook.name %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+		new Tablesort(document.getElementById('js-notebooks-tablesort'), {
+	    descending: true
+	  });
+	})
+</script>
