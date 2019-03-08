@@ -1,0 +1,28 @@
+<%= form_with model: [:admin, periodic_payment], local: true, class: "mb-5" do |f| %>
+  <div class="row">
+    <div class="offset-lg-3 col-lg-6">
+      <div class="form-group <%= periodic_payment.errors[:total].present? ? 'has-danger' : '' %>">
+        <%= f.label :total %>
+        <%= f.text_field :total, class: "form-control #{periodic_payment.errors[:total].present? ? 'is-invalid' : ''}" %>
+        <% if periodic_payment.errors[:total].present? %>
+    	    <div class="invalid-feedback">
+    	      <%= periodic_payment.errors[:total].join(", ") %>
+    	    </div>
+        <% end %>
+      </div>
+    
+      <div class="form-group <%= periodic_payment.errors[:schedule_on].present? ? 'has-danger' : '' %>">
+        <%= f.label :schedule_on %>
+        <%= f.date_field :schedule_on, class: "form-control #{periodic_payment.errors[:schedule_on].present? ? 'is-invalid' : ''}" %>
+        <% if periodic_payment.errors[:schedule_on].present? %>
+    	    <div class="invalid-feedback">
+    	      <%= periodic_payment.errors[:schedule_on].join(", ") %>
+    	    </div>
+        <% end %>
+      </div>
+    
+      <%= link_to I18n.t('text.cancel'), admin_periodic_payments_path, class: "btn btn-link text-danger" %>
+      <%= f.submit class: "btn btn-primary float-right" %>
+    </div>
+  </div>
+<% end %>

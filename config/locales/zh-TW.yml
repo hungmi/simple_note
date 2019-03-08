@@ -24,35 +24,14 @@ zh-TW:
     destroy_success: 刪除成功。
   activerecord:
     models:
-      customer: 客戶
-      supplier: 工廠
-      workpiece: 工件
-      pair: 配組
-      order_item: 訂單
-      procedure: 製程
+      notebook: 賬本
+      periodic_payment: 週期帳款
+      payment: 帳款
       user: 使用者
     attributes:
-      customer:
-        code: 客戶編號
-        name: 客戶名稱
-        address: 地址
-        payment_term: 付款區間
-        note: 備註
-      workpiece:
-        code: 圖號
-        customer_id: 客戶
-      pair:
-        name: 配組名稱
-      order_item:
-        code: 訂購編號
-        workpiece_id: 圖號
-        customer_id: 客戶
-        amount: 數量
-        price: 價格
-        expected_at: 預計交貨日
-        delivered_at: 實際交貨日
-        status: 交貨狀況
-        note: 備註
+      periodic_payment:
+        total: 金額
+        schedule_on: 每月幾號產生
       user:
         id: 使用者編號
         role: 系統角色

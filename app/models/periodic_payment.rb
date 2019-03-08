@@ -1,0 +1,2 @@
+class PeriodicPayment < ApplicationRecord
+end
