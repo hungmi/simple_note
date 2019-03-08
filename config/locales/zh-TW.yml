@@ -27,8 +27,11 @@ zh-TW:
       notebook: 賬本
       periodic_payment: 週期帳款
       payment: 帳款
+      project: 專案
       user: 使用者
     attributes:
+      project:
+        name: 專案名稱
       periodic_payment:
         total: 金額
         schedule_on: 每月幾號產生

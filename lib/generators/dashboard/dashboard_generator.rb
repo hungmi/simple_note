@@ -16,6 +16,7 @@ module Rails
       def create_model
         # creates the migration file for the model.
         generate "model", "#{file_name} #{args.join(' ')}"
+        load "app/models/#{singular_name}.rb"
       end
 
       def create_controller_file

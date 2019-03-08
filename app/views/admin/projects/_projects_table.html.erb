@@ -1,0 +1,22 @@
+<table class="table table-hover" id="js-projects-tablesort">
+	<thead>
+		<tr>
+			<th><%= Project.human_attribute_name("name") %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% projects.map do |project| %>
+			<tr>
+				<td><%= project.name %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+		new Tablesort(document.getElementById('js-projects-tablesort'), {
+	    descending: true
+	  });
+	})
+</script>
