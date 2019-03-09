@@ -599,6 +599,7 @@
 "@rails/webpacker@^4.0.2":
   version "4.0.2"
   resolved "http://registry.npm.taobao.org/@rails/webpacker/download/@rails/webpacker-4.0.2.tgz#2c2e96527500b060a84159098449ddb1615c65e8"
+  integrity sha1-LC6WUnUAsGCoQVkJhEndsWFcZeg=
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/plugin-proposal-class-properties" "^7.3.4"
@@ -5865,6 +5866,7 @@ webpack-dev-middleware@^3.5.1:
 webpack-dev-server@^3.2.1:
   version "3.2.1"
   resolved "http://registry.npm.taobao.org/webpack-dev-server/download/webpack-dev-server-3.2.1.tgz#1b45ce3ecfc55b6ebe5e36dab2777c02bc508c4e"
+  integrity sha1-G0XOPs/FW26+Xjbasnd8ArxQjE4=
   dependencies:
     ansi-html "0.0.7"
     bonjour "^3.5.0"
