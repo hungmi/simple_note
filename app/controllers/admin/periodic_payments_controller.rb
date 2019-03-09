@@ -69,6 +69,6 @@ class Admin::PeriodicPaymentsController < AdminController
 
     # Only allow a trusted parameter "white list" through.
     def periodic_payment_params
-      params.require(:periodic_payment).permit(:total, :schedule_on)
+      params.require(:periodic_payment).permit(:total, :scheduled_day, :note)
     end
 end

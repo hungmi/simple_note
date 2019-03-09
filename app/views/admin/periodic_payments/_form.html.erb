@@ -11,13 +11,23 @@
         <% end %>
       </div>
     
-      <div class="form-group <%= periodic_payment.errors[:schedule_on].present? ? 'has-danger' : '' %>">
-        <%= f.label :schedule_on %>
-        <%= f.number_field :schedule_on, class: "form-control #{periodic_payment.errors[:schedule_on].present? ? 'is-invalid' : ''}", placeholder: "每月 5 號就填 5，月底請填 30", min: 1, max: 30 %>
-        <% if periodic_payment.errors[:schedule_on].present? %>
+      <div class="form-group <%= periodic_payment.errors[:scheduled_day].present? ? 'has-danger' : '' %>">
+        <%= f.label :scheduled_day %>
+        <%= f.number_field :scheduled_day, class: "form-control #{periodic_payment.errors[:scheduled_day].present? ? 'is-invalid' : ''}", placeholder: "每月 5 號就填 5，月底請填 30", min: 1, max: 30 %>
+        <% if periodic_payment.errors[:scheduled_day].present? %>
     	    <div class="invalid-feedback">
-    	      <%= periodic_payment.errors[:schedule_on].join(", ") %>
+    	      <%= periodic_payment.errors[:scheduled_day].join(", ") %>
     	    </div>
+        <% end %>
+      </div>
+
+      <div class="form-group <%= periodic_payment.errors[:note].present? ? 'has-danger' : '' %>">
+        <%= f.label :note %>
+        <%= f.rich_text_area :note, class: "form-control #{periodic_payment.errors[:note].present? ? 'is-invalid' : ''}" %>
+        <% if periodic_payment.errors[:note].present? %>
+          <div class="invalid-feedback">
+            <%= periodic_payment.errors[:note].join(", ") %>
+          </div>
         <% end %>
       </div>
     

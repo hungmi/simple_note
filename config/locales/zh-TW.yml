@@ -45,7 +45,8 @@ zh-TW:
         note: 備註
       periodic_payment:
         total: 金額
-        schedule_on: 每月幾號產生
+        scheduled_day: 每月幾號產生
+        note: 備註
       user:
         id: 使用者編號
         role: 系統角色

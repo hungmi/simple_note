@@ -1,14 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
-  <a class="navbar-brand" href="/admin">管理者後台</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+  <!-- <a class="navbar-brand" href="/admin">管理者後台</a> -->
+  <% ["payment","project", "notebook"].each do |singular_name| %>
+    <a class="<%= 'active' if controller_name == singular_name.pluralize %> nav-link py-1 px-3" href="/admin/<%= singular_name.pluralize %>"><%= I18n.t("activerecord.models.#{singular_name}") %></a>
+  <% end %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <% ["user", "notebook", "periodic_payment", "project", "payment"].each do |singular_name| %>
+      <% ["user", "periodic_payment"].each do |singular_name| %>
       <li class='nav-item <%= 'active' if controller_name == singular_name.pluralize %>'>
-        <a class="nav-link py-sm-2 py-3" href="/admin/<%= singular_name.pluralize %>"><%= I18n.t("activerecord.models.#{singular_name}") %></a>
+        <a class="nav-link py-sm-2 py-3 px-3" href="/admin/<%= singular_name.pluralize %>"><%= I18n.t("activerecord.models.#{singular_name}") %></a>
       </li>
       <% end %>
     </ul>

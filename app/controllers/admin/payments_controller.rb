@@ -29,7 +29,7 @@ class Admin::PaymentsController < AdminController
 
     if @payment.save
       flash[:success] = I18n.t('flash.create_success')
-      redirect_to [:admin, @payment]
+      redirect_to admin_payments_path(anchor: "payment-#{@payment.id}")
     else
       render :new
     end

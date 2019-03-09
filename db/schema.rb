@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2019_03_08_145442) do
 
   create_table "periodic_payments", force: :cascade do |t|
     t.decimal "total", precision: 12, scale: 3, null: false
-    t.date "schedule_on", null: false
+    t.string "scheduled_day", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
