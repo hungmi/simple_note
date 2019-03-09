@@ -10,3 +10,5 @@ require("channels")
 
 require("trix")
 require("@rails/actiontext")
+
+import "./../src/admin.sass"
