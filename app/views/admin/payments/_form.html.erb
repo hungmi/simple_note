@@ -1,9 +1,10 @@
+<%= notice_message(payment.errors.full_messages, "danger") if payment.errors.any? %>
 <%= form_with model: [:admin, payment], local: true, class: "mb-5" do |f| %>
   <div class="row">
     <div class="offset-lg-3 col-lg-6">
       <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
         <%= f.label :total %>
-        <%= f.text_field :total, class: "form-control #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
+        <%= f.number_field :total, autofocus: true, pattern: "[0-9]*", required: false, class: "form-control #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
         <% if payment.errors[:total].present? %>
     	    <div class="invalid-feedback">
     	      <%= payment.errors[:total].join(", ") %>
@@ -11,6 +12,42 @@
         <% end %>
       </div>
     
+      <div class="form-group <%= payment.errors[:note].present? ? 'has-danger' : '' %>">
+        <%= f.label :note %>
+        <%= f.rich_text_area :note, class: "form-control #{payment.errors[:note].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:note].present? %>
+          <div class="invalid-feedback">
+            <%= payment.errors[:note].join(", ") %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form-group <%= payment.errors[:notebook_id].present? ? 'has-danger' : '' %>">
+        <%= f.label :notebook_id %>
+        <%= f.select :notebook_id, Notebook.all.pluck(:name, :id), {}, class: "form-control #{payment.errors[:notebook_id].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:notebook_id].present? %>
+          <div class="invalid-feedback">
+            <%= payment.errors[:notebook_id].join(", ") %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form-group <%= payment.errors[:project_id].present? ? 'has-danger' : '' %>">
+        <%= f.label :project_id %>
+        <% if Project.first.present? %>
+          <%= f.select :project_id, Project.all.pluck(:name, :id), { include_blank: "請選擇專案" }, class: "form-control #{payment.errors[:project_id].present? ? 'is-invalid' : ''}" %>
+        <% else %>
+          <%= f.text_field :project_id, placeholder: "no projects available", class: "form-control", disabled: true %>
+        <% end %>
+        <% if payment.errors[:project_id].present? %>
+          <div class="invalid-feedback">
+            <%= payment.errors[:project_id].join(", ") %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= f.hidden_field :user_id, value: current_user.id %>
+
       <%= link_to I18n.t('text.cancel'), admin_payments_path, class: "btn btn-link text-danger" %>
       <%= f.submit class: "btn btn-primary float-right" %>
     </div>

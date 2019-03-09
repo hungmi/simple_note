@@ -5,7 +5,7 @@ class Admin::PaymentsController < AdminController
   # GET /payments
   def index
     authorize [:admin, :payment], :index?
-    @pagy, @payments = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    @pagy, @payments = pagy(@q.result(distinct: true).order(id: :desc), items: 20)
   end
 
   # GET /payments/1
@@ -39,7 +39,7 @@ class Admin::PaymentsController < AdminController
   def update
     if @payment.update(payment_params)
       flash[:success] = I18n.t('flash.update_success')
-      redirect_to [:admin, @payment]
+      redirect_to admin_payments_path(anchor: "payment-#{@payment.id}")
     else
       render :edit
     end
@@ -68,6 +68,6 @@ class Admin::PaymentsController < AdminController
 
     # Only allow a trusted parameter "white list" through.
     def payment_params
-      params.require(:payment).permit(:total)
+      params.require(:payment).permit(:total, :note, :notebook_id, :user_id, :recorder_id, :periodic_payment_id)
     end
 end

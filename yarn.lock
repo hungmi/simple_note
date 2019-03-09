@@ -580,6 +580,12 @@
   version "6.0.0-alpha"
   resolved "http://registry.npm.taobao.org/@rails/actioncable/download/@rails/actioncable-6.0.0-alpha.tgz#84be50626a43fe431789243c6b13c14f922bf048"
 
+"@rails/actiontext@^6.0.0-beta2":
+  version "6.0.0-beta2"
+  resolved "http://registry.npm.taobao.org/@rails/actiontext/download/@rails/actiontext-6.0.0-beta2.tgz#c969d74a992483489b44772b32f1d4ada870687a"
+  dependencies:
+    "@rails/activestorage" "^6.0.0-alpha"
+
 "@rails/activestorage@^6.0.0-alpha":
   version "6.0.0-alpha"
   resolved "http://registry.npm.taobao.org/@rails/activestorage/download/@rails/activestorage-6.0.0-alpha.tgz#6eb6c0f49bcaa4ad68fcd13a750b9a17f76f086f"
@@ -3635,8 +3641,8 @@ node-pre-gyp@^0.10.0:
     tar "^4"
 
 node-releases@^1.1.8:
-  version "1.1.9"
-  resolved "http://registry.npm.taobao.org/node-releases/download/node-releases-1.1.9.tgz#70d0985ec4bf7de9f08fc481f5dae111889ca482"
+  version "1.1.10"
+  resolved "http://registry.npm.taobao.org/node-releases/download/node-releases-1.1.10.tgz#5dbeb6bc7f4e9c85b899e2e7adcc0635c9b2adf7"
   dependencies:
     semver "^5.3.0"
 
@@ -5598,6 +5604,10 @@ trim-newlines@^1.0.0:
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/trim-right/download/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
+
+trix@^1.0.0:
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/trix/download/trix-1.1.0.tgz#8286149128f032d6d6df17fc8dcd2ee2aed5e7de"
 
 "true-case-path@^1.0.2":
   version "1.0.3"

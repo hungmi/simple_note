@@ -68,6 +68,6 @@ class Admin::NotebooksController < AdminController
 
     # Only allow a trusted parameter "white list" through.
     def notebook_params
-      params.require(:notebook).permit(:name)
+      params.require(:notebook).permit(:name, :note)
     end
 end
