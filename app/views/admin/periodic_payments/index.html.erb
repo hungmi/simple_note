@@ -20,7 +20,7 @@
 	</div>
 <% end %>
 
-<%== pagy_bootstrap_nav(@pagy) %>
+<%#== pagy_bootstrap_nav(@pagy) %>
 <div class="row">
 	<% if not_desktop? %>
   	<%= render @periodic_payments %>
@@ -28,7 +28,7 @@
   	<%= render partial: "periodic_payments_table", locals: { periodic_payments: @periodic_payments } %>
   <% end %>
 </div>
-<%== pagy_bootstrap_nav(@pagy) %>
+<%#== pagy_bootstrap_nav(@pagy) %>
 
 <div class="btn-abs-wrapper">
 	<%= link_to new_admin_periodic_payment_path, class: "btn btn-success btn-icon--circle" do %>

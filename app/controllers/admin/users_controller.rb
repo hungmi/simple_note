@@ -5,7 +5,8 @@ class Admin::UsersController < AdminController
   # GET /users
   def index
     authorize [:admin, :user], :index?
-    @pagy, @users = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    # @pagy, @users = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    @users = @q.result(distinct: true).order(updated_at: :desc)
   end
 
   # GET /users/1

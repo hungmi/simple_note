@@ -5,7 +5,8 @@ class Admin::ProjectsController < AdminController
   # GET /projects
   def index
     authorize [:admin, :project], :index?
-    @pagy, @projects = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    # @pagy, @projects = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    @projects = @q.result(distinct: true).order(updated_at: :desc)
   end
 
   # GET /projects/1

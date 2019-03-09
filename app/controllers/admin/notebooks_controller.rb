@@ -5,7 +5,8 @@ class Admin::NotebooksController < AdminController
   # GET /notebooks
   def index
     authorize [:admin, :notebook], :index?
-    @pagy, @notebooks = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    # @pagy, @notebooks = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    @notebooks = @q.result(distinct: true).order(updated_at: :desc)
   end
 
   # GET /notebooks/1

@@ -5,7 +5,8 @@ class Admin::PeriodicPaymentsController < AdminController
   # GET /periodic_payments
   def index
     authorize [:admin, :periodic_payment], :index?
-    @pagy, @periodic_payments = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    # @pagy, @periodic_payments = pagy(@q.result(distinct: true).order(updated_at: :desc), items: 20)
+    @periodic_payments = @q.result(distinct: true).order(updated_at: :desc)
   end
 
   # GET /periodic_payments/1
