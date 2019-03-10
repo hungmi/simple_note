@@ -1,6 +1,6 @@
 module ApplicationHelper
   def meta_title
-    @page_title.present? ? '#{@page_title} | 鴻妍搏命' : '鴻妍搏命工作室'
+    @page_title.present? ? '#{@page_title} | 黑白記' : '黑白記'
   end
 
   def flash_notice_message(opts = {})
