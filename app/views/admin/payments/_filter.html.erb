@@ -1,10 +1,31 @@
 <%= search_form_for [:admin, @q] do |f| %>
 	<div class="form-row">
     <div class="form-group col-12">
-      <%= f.label @nav_search_symbol, I18n.t("text.filter.#{@nav_search_symbol.to_s}") %>
-      <%= f.search_field @nav_search_symbol, class: "form-control" %>
+      <%= f.label :total_eq, I18n.t("text.filter.total_eq") %>
+      <%= f.text_field :total_eq, value: params[:q].try(:[], :total_eq), pattern: "[0-9]*", class: "form-control form-control-sm" %>
+      <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+        <% Notebook.all.pluck(:name, :id).map do |name, id| %>
+          <label class="btn <%= id.to_s == params[:q].try(:[], :notebook_id_eq) ? 'btn-primary active' : 'btn-secondary' %>">
+            <%= radio_button_tag 'q[notebook_id_eq]', id, id.to_s == params[:q].try(:[], :notebook_id_eq) %> <%= name %>
+          </label>
+        <% end %>
+      </div>
+      <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+        <% Project.all.pluck(:name, :id).map do |name, id| %>
+          <label class="btn <%= id.to_s == params[:q].try(:[], :project_id_eq) ? 'btn-primary active' : 'btn-secondary' %>">
+            <%= radio_button_tag 'q[project_id_eq]', id, id.to_s == params[:q].try(:[], :project_id_eq) %> <%= name %>
+          </label>
+        <% end %>
+      </div>
+      <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+        <% User.all.pluck(:name, :id).map do |name, id| %>
+          <label class="btn <%= id.to_s == params[:q].try(:[], :recorder_id_eq) ? 'btn-primary active' : 'btn-secondary' %>">
+            <%= radio_button_tag 'q[recorder_id_eq]', id, id.to_s == params[:q].try(:[], :recorder_id_eq) %> <%= name %>
+          </label>
+        <% end %>
+      </div>
     </div>
   </div>
-  <%= link_to I18n.t("text.clear"), admin_payments_path, class: "btn btn-link text-danger btn-sm" %>
-  <%= f.submit I18n.t("text.apply"), class: "btn btn-secondary float-right btn-sm" %>
+  <%= link_to I18n.t("text.clear"), admin_payments_path, class: "btn btn-link text-danger btn-sm float-right" %>
+  <%#= f.submit I18n.t("text.apply"), class: "btn btn-secondary float-right btn-sm" %>
 <% end %>

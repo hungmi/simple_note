@@ -62,12 +62,12 @@ class Admin::PaymentsController < AdminController
 
     def set_search
       @q = Payment.ransack(params[:q])
-      @nav_search_symbol = :id_eq
+      @nav_search_symbol = :total_eq
       @nav_search_placeholder = nil
     end
 
     # Only allow a trusted parameter "white list" through.
     def payment_params
-      params.require(:payment).permit(:total, :note, :notebook_id, :user_id, :recorder_id, :periodic_payment_id)
+      params.require(:payment).permit(:total, :note, :notebook_id, :user_id, :recorder_id, :project_id, :periodic_payment_id)
     end
 end

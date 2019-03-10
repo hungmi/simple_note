@@ -3,8 +3,8 @@
   <div class="row">
     <div class="offset-lg-3 col-lg-6">
       <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
-        <%= f.label :total %>
-        <%= f.number_field :total, autofocus: true, pattern: "[0-9]*", required: true, class: "form-control #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
+        <%#= f.label :total %>
+        <%= f.number_field :total, value: f.object.total.present? ? f.object.total.to_i : nil, autofocus: true, pattern: "[0-9]*", required: true, class: "form-control form-control-sm #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
         <% if payment.errors[:total].present? %>
     	    <div class="invalid-feedback">
     	      <%= payment.errors[:total].join(", ") %>
@@ -13,7 +13,7 @@
       </div>
     
       <div class="form-group <%= payment.errors[:note].present? ? 'has-danger' : '' %>">
-        <%= f.label :note %>
+        <%#= f.label :note %>
         <%= f.rich_text_area :note, class: "form-control #{payment.errors[:note].present? ? 'is-invalid' : ''}" %>
         <% if payment.errors[:note].present? %>
           <div class="invalid-feedback">
@@ -22,20 +22,36 @@
         <% end %>
       </div>
 
-      <div class="form-group <%= payment.errors[:notebook_id].present? ? 'has-danger' : '' %>">
-        <%= f.label :notebook_id %>
-        <%= f.select :notebook_id, Notebook.all.pluck(:name, :id), {}, class: "form-control #{payment.errors[:notebook_id].present? ? 'is-invalid' : ''}" %>
-        <% if payment.errors[:notebook_id].present? %>
+      <div class="form-group <%= payment.errors[:notebook].present? ? 'has-danger' : '' %>">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <% Notebook.all.pluck(:name, :id).map do |name, id| %>
+            <label class="btn <%= id == payment.notebook_id ? 'btn-primary active' : 'btn-secondary' %> <%= payment.errors[:notebook].present? ? 'btn-danger' : '' %>">
+              <%= radio_button_tag 'notebook_id', id, id == payment.notebook_id %> <%= name %>
+            </label>
+          <% end %>
+        </div>
+        <%= f.text_field :notebook_id, class: "d-none form-control #{payment.errors[:notebook].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:notebook].present? %>
           <div class="invalid-feedback">
-            <%= payment.errors[:notebook_id].join(", ") %>
+            <%= payment.errors[:notebook].join(", ") %>
           </div>
         <% end %>
       </div>
 
-      <div class="form-group <%= payment.errors[:project_id].present? ? 'has-danger' : '' %>">
-        <%= f.label :project_id %>
+      <div class="form-group <%= payment.errors[:project].present? ? 'has-danger' : '' %>">
+        <%#= f.label :project_id %>
         <% if Project.first.present? %>
-          <%= f.select :project_id, Project.all.pluck(:name, :id), { include_blank: "請選擇專案" }, class: "form-control #{payment.errors[:project_id].present? ? 'is-invalid' : ''}" %>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <% Project.all.pluck(:name, :id).map do |name, id| %>
+              <label class="btn <%= id == payment.project_id ? 'btn-primary active' : 'btn-secondary' %>">
+                <%= radio_button_tag 'project_id', id, id == payment.project_id %> <%= name %>
+              </label>
+            <% end %>
+            <label class="btn <%= payment.project_id.blank? ? 'btn-primary active' : 'btn-secondary' %>">
+              <%= radio_button_tag 'project_id', nil, payment.project_id.blank? %> 無
+            </label>
+          </div>
+          <%= f.text_field :project_id, class: "d-none form-control #{payment.errors[:project].present? ? 'is-invalid' : ''}" %>
         <% else %>
           <%= f.text_field :project_id, placeholder: "no projects available", class: "form-control", disabled: true %>
         <% end %>
@@ -53,3 +69,13 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $("form").on("submit", function() {
+    $("input[name='payment[notebook_id]']").val( $("input[type='radio'][name='notebook_id']:checked")[0].value )
+    $("input[name='payment[project_id]']").val( $("input[type='radio'][name='project_id']:checked")[0].value )
+    if (isNaN($("input[type='radio'][name='project_id']:checked")[0].value)) {
+      $("input[name='payment[project_id]']").val(null)
+    }
+  })
+</script>

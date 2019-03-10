@@ -15,9 +15,12 @@ zh-TW:
     search_result: 搜尋結果
     filter: 篩選器
     apply: 應用
-    clear: 清除
+    clear: 清除條件
     filter:
       id_eq: ID 等於
+      project_id_eq: 專案
+      notebook_id_eq: 賬本
+      total_eq: 金額符合
   flash:
     create_success: 建立成功。
     update_success: 更新成功。

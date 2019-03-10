@@ -1,12 +1,18 @@
-<div class="card mb-1 <%= 'border-primary' if payment.created_at.to_date == Time.zone.today %>">
+<div class="card mb-1 <%= 'border-primary' if Time.zone.now - payment.updated_at < 10.minutes %>">
   <!-- <div class="card-header">Header</div> -->
   <%#= payment.created_at.strftime("%F") %>
   <div class="card-body pr-2 py-2 d-flex justify-content-between align-content-between flex-wrap">
-		<div class="mr-auto" style="font-size: 22px; flex: 0 0 50%;">
+		<div class="mr-auto" style="font-size: 22px; flex: 0 0 100px;">
 			<%= link_to payment.total.to_i, edit_admin_payment_path(payment) %></div>
-		<div class="d-flex justify-content-between align-items-center" style="flex: 0 0 50%;">
-			<span class="text-muted" style="font-size: 16px;"><%= "##{payment.notebook.name}" if payment.notebook_id.present? %> <%= "##{payment.recorder.name}" if payment.user_id.present? %></span>
-			<%= link_to I18n.t('text.destroy'), [:admin, payment], method: :delete, data: { confirm: I18n.t("text.confirm_destroy") }, class: "text-danger card-link mr-2" %>
+		<div class="d-flex justify-content-between align-items-center" style="flex: 1 0 50%;">
+			<span class="text-muted" style="font-size: 16px;">
+				<%= link_to("##{payment.notebook.name}", admin_payments_path(q: { project_id_eq: (params[:q][:project_id_eq] if params[:q].present?), notebook_id_eq: payment.notebook_id, recorder_id_eq: (params[:q][:recorder_id_eq] if params[:q].present?) })) if payment.notebook_id.present? %>
+				<%= link_to("##{payment.project.name}", admin_payments_path(q: { project_id_eq: payment.project_id, notebook_id_eq: (params[:q][:notebook_id_eq] if params[:q].present?), recorder_id_eq: (params[:q][:recorder_id_eq] if params[:q].present?) })) if payment.project_id.present? %>
+				<%= link_to("##{payment.recorder.name}", admin_payments_path(q: { project_id_eq: (params[:q][:project_id_eq] if params[:q].present?), notebook_id_eq: (params[:q][:notebook_id_eq] if params[:q].present?), recorder_id_eq: payment.user_id })) if payment.user_id.present? %>
+			</span>
+			<%= link_to [:admin, payment], method: :delete, data: { confirm: I18n.t("text.confirm_destroy") }, class: "text-danger card-link mr-2" do %>
+				<i class="material-icons" style="font-size: 18px;">close</i>
+			<% end %>
 		</div>
 		<div style="flex: 0 0 100%;">
 	  	<%= payment.note %>
