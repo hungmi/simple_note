@@ -2,12 +2,14 @@
 	<thead>
 		<tr>
 			<th><%= Project.human_attribute_name("name") %></th>
+			<th><%= Project.human_attribute_name("note") %></th>
 		</tr>
 	</thead>
 	<tbody>
 		<% projects.map do |project| %>
 			<tr>
 				<td><%= project.name %></td>
+				<td><%= project.note %></td>
 			</tr>
 		<% end %>
 	</tbody>

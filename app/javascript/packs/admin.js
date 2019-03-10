@@ -17,11 +17,17 @@ import "timeago"
 
 document.addEventListener("turbolinks:load", function() {
 	$("form#payment_search input, form#payment_search select").on("change", function() {
-		$("form#payment_search").submit()
+		if (!$("form#payment_search").hasClass("submitting")) {
+			$("form#payment_search").addClass("submitting")
+			$("form#payment_search").submit()
+		}
 	})
 	$("form#payment_search label").on("click", function() {
-		$(this).find("input[type='radio']").prop("checked", !$(this).find("input[type='radio']").prop("checked"))
-		$("form#payment_search").submit()
+		if (!$("form#payment_search").hasClass("submitting")) {
+			$(this).find("input[type='radio']").prop("checked", !$(this).find("input[type='radio']").prop("checked"))
+			$("form#payment_search").addClass("submitting")
+			$("form#payment_search").submit()
+		}
 	})
 	$(".btn-group-toggle label").on("click", function() {
 		$(this).parents(".btn-group-toggle").find("label").addClass("btn-secondary").removeClass("btn-primary")

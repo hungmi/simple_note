@@ -2,12 +2,14 @@
 	<thead>
 		<tr>
 			<th><%= Notebook.human_attribute_name("name") %></th>
+			<th><%= Notebook.human_attribute_name("note") %></th>
 		</tr>
 	</thead>
 	<tbody>
 		<% notebooks.map do |notebook| %>
 			<tr>
 				<td><%= notebook.name %></td>
+				<td><%= notebook.note %></td>
 			</tr>
 		<% end %>
 	</tbody>

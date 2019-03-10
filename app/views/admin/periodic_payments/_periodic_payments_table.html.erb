@@ -2,14 +2,16 @@
 	<thead>
 		<tr>
 			<th><%= PeriodicPayment.human_attribute_name("total") %></th>
-			<th><%= PeriodicPayment.human_attribute_name("schedule_on") %></th>
+			<th><%= PeriodicPayment.human_attribute_name("scheduled_day") %></th>
+			<th><%= PeriodicPayment.human_attribute_name("note") %></th>
 		</tr>
 	</thead>
 	<tbody>
 		<% periodic_payments.map do |periodic_payment| %>
 			<tr>
 				<td><%= periodic_payment.total %></td>
-				<td><%= periodic_payment.schedule_on %></td>
+				<td><%= periodic_payment.scheduled_day %></td>
+				<td><%= periodic_payment.note %></td>
 			</tr>
 		<% end %>
 	</tbody>

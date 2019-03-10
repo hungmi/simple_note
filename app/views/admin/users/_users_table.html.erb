@@ -3,8 +3,6 @@
 		<tr>
 			<th><%= User.human_attribute_name("name") %></th>
 			<th><%= User.human_attribute_name("role") %></th>
-			<th><%= User.human_attribute_name("password") %></th>
-			<th><%= User.human_attribute_name("password_confirmation") %></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -12,8 +10,6 @@
 			<tr>
 				<td><%= user.name %></td>
 				<td><%= user.role %></td>
-				<td><%= user.password %></td>
-				<td><%= user.password_confirmation %></td>
 			</tr>
 		<% end %>
 	</tbody>
