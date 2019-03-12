@@ -8,4 +8,6 @@ class Payment < ApplicationRecord
 	belongs_to :recorder, class_name: "User", foreign_key: :user_id
 
 	enum kind: { outcome: 0, income: 1, ignore: 2 }
+	scope :today, -> { where("created_at >= ?", Time.zone.today - 1.day) }
+	scope :yesterday, -> { where("created_at <= ? AND created_at >= ?", Time.zone.today - 1.day, Time.zone.today - 2.day) }
 end

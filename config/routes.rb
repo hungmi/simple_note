@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get 'admin', to: redirect('/admin/payments')
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 	namespace :admin do
-		resources :payments
+		resources :payments do
+			get "summary", on: :collection
+		end
 		resources :projects
 		resources :periodic_payments
 		resources :notebooks

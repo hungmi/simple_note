@@ -1,13 +1,13 @@
 class Admin::PaymentsController < AdminController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
   before_action :set_search
+  skip_after_action :verify_authorized, only: :summary
 
   # GET /payments
   def index
     authorize [:admin, :payment], :index?
     dates = Payment.order(Arel.sql("created_at DESC")).pluck(Arel.sql("date(created_at)")).uniq
-    @pagy, @dates = pagy_array(dates, items: 3)
-    @payments = Payment.where("date(created_at) <= ? AND date(created_at) >= ?", @dates.max, @dates.min)
+    @pagy, @payments = pagy(@q.result(distinct: true), items: 20)
   end
 
   # GET /payments/1
@@ -17,6 +17,10 @@ class Admin::PaymentsController < AdminController
   # GET /payments/new
   def new
     @payment = Payment.new
+    notebook_usage_counts = Payment.select(Arel.sql("count(notebook_id) as count, notebook_id")).group(:notebook_id)
+    mostly_used_notebook_count = notebook_usage_counts.map(&:count).max
+    mostly_used_notebook_attrs = notebook_usage_counts.select { |c| c.count == mostly_used_notebook_count }
+    @default_notebook_id = mostly_used_notebook_attrs.first.notebook_id if mostly_used_notebook_attrs.present?
     authorize [:admin, @payment]
   end
 
@@ -51,8 +55,10 @@ class Admin::PaymentsController < AdminController
   def destroy
     @payment.destroy
     flash[:success] = I18n.t('flash.destroy_success')
-    redirect_to admin_payments_url
+    redirect_back fallback_location: admin_payments_path
   end
+
+  def summary ; end
 
   private
 

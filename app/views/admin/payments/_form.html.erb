@@ -41,8 +41,9 @@
       <div class="form-group <%= payment.errors[:notebook].present? ? 'has-danger' : '' %>">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <% Notebook.all.pluck(:name, :id).map do |name, id| %>
-            <label class="btn <%= id == payment.notebook_id ? 'btn-primary active' : 'btn-secondary' %> <%= payment.errors[:notebook].present? ? 'btn-danger' : '' %>">
-              <%= radio_button_tag 'notebook_id', id, id == payment.notebook_id %> <%= name %>
+            <% checked = @default_notebook_id.present? ? (id == @default_notebook_id) : (id == payment.notebook_id) %>
+            <label class="btn <%= checked ? 'btn-primary active' : 'btn-secondary' %> <%= payment.errors[:notebook].present? ? 'btn-danger' : '' %>">
+              <%= radio_button_tag 'notebook_id', id, checked %> <%= name %>
             </label>
           <% end %>
         </div>

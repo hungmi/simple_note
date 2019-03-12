@@ -23,7 +23,13 @@ require("@rails/actiontext")
 import "timeago"
 
 document.addEventListener("turbolinks:load", function() {
-	$("form#payment_search input, form#payment_search select").on("change", function() {
+	$("form#payment_search input[type='text'], form#payment_search select").on("change", function() {
+		if (!$("form#payment_search").hasClass("submitting")) {
+			$("form#payment_search").addClass("submitting")
+			$("form#payment_search").submit()
+		}
+	})
+	$("form#payment_search input[type='date']").on("blur", function() {
 		if (!$("form#payment_search").hasClass("submitting")) {
 			$("form#payment_search").addClass("submitting")
 			$("form#payment_search").submit()
