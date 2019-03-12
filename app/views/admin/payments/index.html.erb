@@ -16,8 +16,8 @@
 	<% if params[:q].present? %>
 		<%= I18n.t("text.search_result") %>：<%= @q.result(distinct: true).size %>
 	<% else %>
-		今日支出 <%= @payments.outcome.today.sum(:total).to_i %>
-		昨日支出 <%= @payments.outcome.yesterday.sum(:total).to_i %>
+		今日支出 <%= Payment.outcome.today.sum(:total).to_i %>
+		昨日支出 <%= Payment.outcome.yesterday.sum(:total).to_i %>
 	<% end %>
 </div>
 
