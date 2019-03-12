@@ -10,12 +10,30 @@
 		    <th style="width: 15px; font-size: 16px;"><%= nb.name %></th>
 		    <td>
 		    	<table class="table table-sm table-inside">
-		    		<% Project.where(id: nb.payments.pluck(:project_id)).each do |project| %>
+		    		<% Project.where(id: nb.payments.outcome.pluck(:project_id)).each do |project| %>
 			    		<tr>
 		    				<th style="width: 10px;"><%= project.name %></th>
-		    				<td><%= nb.payments.where(project_id: project.id).sum(:total).to_i %></td>
+		    				<td>-<%= nb.payments.outcome.where(project_id: project.id).sum(:total).to_i %></td>
 			    		</tr>
 		    		<% end %>
+		    		<tr>
+		    			<th>無</th>
+		    			<td>-<%= nb.payments.outcome.where(project_id: nil).sum(:total).to_i %></td>
+		    		</tr>
+		    	</table>
+		    </td>
+		    <td>
+		    	<table class="table table-sm table-inside">
+		    		<% Project.where(id: nb.payments.income.pluck(:project_id)).each do |project| %>
+			    		<tr>
+		    				<th style="width: 10px;"><%= project.name %></th>
+		    				<td><%= nb.payments.income.where(project_id: project.id).sum(:total).to_i %></td>
+			    		</tr>
+		    		<% end %>
+		    		<tr>
+		    			<th>無</th>
+		    			<td><%= nb.payments.income.where(project_id: nil).sum(:total).to_i %></td>
+		    		</tr>
 		    	</table>
 		    </td>
 		    <td>
@@ -23,19 +41,13 @@
 		    		<% Project.where(id: nb.payments.pluck(:project_id)).each do |project| %>
 			    		<tr>
 		    				<th style="width: 10px;"><%= project.name %></th>
-		    				<td><%= nb.payments.where(project_id: project.id).sum(:total).to_i %></td>
+		    				<td><%= nb.payments.income.where(project_id: project.id).sum(:total).to_i - nb.payments.outcome.where(project_id: project.id).sum(:total).to_i %></td>
 			    		</tr>
 		    		<% end %>
-		    	</table>
-		    </td>
-		    <td>
-		    	<table class="table table-sm table-inside">
-		    		<% Project.where(id: nb.payments.pluck(:project_id)).each do |project| %>
-			    		<tr>
-		    				<th style="width: 10px;"><%= project.name %></th>
-		    				<td><%= nb.payments.where(project_id: project.id).sum(:total).to_i %></td>
-			    		</tr>
-		    		<% end %>
+		    		<tr>
+		    			<th>無</th>
+		    			<td><%= nb.payments.income.where(project_id: nil).sum(:total).to_i - nb.payments.outcome.where(project_id: nil).sum(:total).to_i %></td>
+		    		</tr>
 		    	</table>
 		    </td>
 		  </tr>
