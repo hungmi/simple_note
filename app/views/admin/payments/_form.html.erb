@@ -22,6 +22,22 @@
         <% end %>
       </div>
 
+      <div class="form-group <%= payment.errors[:kind].present? ? 'has-danger' : '' %>">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <% Payment.kinds.keys.map do |name| %>
+            <label class="btn <%= name == payment.kind ? 'btn-primary active' : 'btn-secondary' %> <%= payment.errors[:kind].present? ? 'btn-danger' : '' %>">
+              <%= radio_button_tag 'payment[kind]', name, name == payment.kind %> <%= name %>
+            </label>
+          <% end %>
+        </div>
+        <%= f.text_field :kind, class: "d-none form-control #{payment.errors[:kind].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:kind].present? %>
+          <div class="invalid-feedback">
+            <%= payment.errors[:kind].join(", ") %>
+          </div>
+        <% end %>
+      </div>
+
       <div class="form-group <%= payment.errors[:notebook].present? ? 'has-danger' : '' %>">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <% Notebook.all.pluck(:name, :id).map do |name, id| %>
@@ -74,6 +90,7 @@
   $("form").on("submit", function() {
     $("input[name='payment[notebook_id]']").val( $("input[type='radio'][name='notebook_id']:checked")[0].value )
     $("input[name='payment[project_id]']").val( $("input[type='radio'][name='project_id']:checked")[0].value )
+    $("input[name='payment[kind]']").val( $("input[type='radio'][name='payment[kind]']:checked")[0].value )
     if (isNaN($("input[type='radio'][name='project_id']:checked")[0].value)) {
       $("input[name='payment[project_id]']").val(null)
     }

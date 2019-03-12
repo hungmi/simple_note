@@ -17,49 +17,7 @@
 </div>
 
 <div class="mb-4">
-	<table class="table table-sm table-bordered table-responsive-sm">
-		<tr>
-	    <th></th>
-	    <th style="font-size: 16px;">支出</th>
-	    <th style="font-size: 16px;">收入</th>
-	    <th style="font-size: 16px;">淨額</th>
-	  </tr>
-		<% Notebook.all.map do |nb| %>
-		  <tr>
-		    <th style="width: 15px; font-size: 16px;"><%= nb.name %></th>
-		    <td>
-		    	<table class="table table-sm table-inside">
-		    		<% Project.where(id: nb.payments.pluck(:project_id)).each do |project| %>
-			    		<tr>
-		    				<th style="width: 10px;"><%= project.name %></th>
-		    				<td><%= nb.payments.where(project_id: project.id).sum(:total).to_i %></td>
-			    		</tr>
-		    		<% end %>
-		    	</table>
-		    </td>
-		    <td>
-		    	<table class="table table-sm table-inside">
-		    		<% Project.where(id: nb.payments.pluck(:project_id)).each do |project| %>
-			    		<tr>
-		    				<th style="width: 10px;"><%= project.name %></th>
-		    				<td><%= nb.payments.where(project_id: project.id).sum(:total).to_i %></td>
-			    		</tr>
-		    		<% end %>
-		    	</table>
-		    </td>
-		    <td>
-		    	<table class="table table-sm table-inside">
-		    		<% Project.where(id: nb.payments.pluck(:project_id)).each do |project| %>
-			    		<tr>
-		    				<th style="width: 10px;"><%= project.name %></th>
-		    				<td><%= nb.payments.where(project_id: project.id).sum(:total).to_i %></td>
-			    		</tr>
-		    		<% end %>
-		    	</table>
-		    </td>
-		  </tr>
-		<% end %>
-	</table>
+	<%= render "payments_summary_table" %>
 </div>
 
 <%== pagy_bootstrap_nav(@pagy) %>

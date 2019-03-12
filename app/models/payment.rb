@@ -6,4 +6,6 @@ class Payment < ApplicationRecord
 	belongs_to :notebook
 	belongs_to :periodic_payment, optional: true
 	belongs_to :recorder, class_name: "User", foreign_key: :user_id
+
+	enum kind: { outcome: 0, income: 1, ignore: 2 }
 end
