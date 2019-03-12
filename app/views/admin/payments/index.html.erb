@@ -19,6 +19,7 @@
 <%== pagy_bootstrap_nav(@pagy) %>
 <div class="mb-4">
 	<% if not_desktop? %>
+		<h6><%= @dates.max %> ~ <%= @dates.min %> | total: <%= @payments.size %></h6>
   	<%= render @payments %>
   <% else %>
   	<%= render partial: "payments_table", locals: { payments: @payments } %>

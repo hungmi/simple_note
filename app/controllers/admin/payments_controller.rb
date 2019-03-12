@@ -5,7 +5,9 @@ class Admin::PaymentsController < AdminController
   # GET /payments
   def index
     authorize [:admin, :payment], :index?
-    @pagy, @payments = pagy(@q.result(distinct: true).order(id: :desc), items: 20)
+    dates = Payment.order(Arel.sql("created_at DESC")).pluck(Arel.sql("date(created_at)")).uniq
+    @pagy, @dates = pagy_array(dates, items: 3)
+    @payments = Payment.where("date(created_at) <= ? AND date(created_at) >= ?", @dates.max, @dates.min)
   end
 
   # GET /payments/1
