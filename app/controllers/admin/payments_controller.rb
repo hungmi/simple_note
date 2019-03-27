@@ -30,10 +30,26 @@ class Admin::PaymentsController < AdminController
 
   # POST /payments
   def create
-    @payment = Payment.new(payment_params)
-    authorize [:admin, @payment]
+    success = true
+    if payment_params[:total_text].present?
+      total_texts_arr = payment_params[:total_text].split("\r\n")
+      total_texts_arr.each do |total_text|
+        price = total_text[/\d+$/]
+        note = total_text[0..(total_text.length - price.length - 1)] if price.present? && total_text.length > price.length
+        @payment = Payment.new( payment_params.merge(total: price, note: note.try(:strip)) )
+        authorize [:admin, @payment]
+        unless @payment.save
+          success = false
+          break
+        end
+      end
+    else
+      @payment = Payment.create(payment_params)
+      authorize [:admin, @payment]
+      success = @payment.persisted?
+    end
 
-    if @payment.save
+    if success
       flash[:success] = I18n.t('flash.create_success')
       redirect_to admin_payments_path(anchor: "payment-#{@payment.id}")
     else
@@ -76,6 +92,6 @@ class Admin::PaymentsController < AdminController
 
     # Only allow a trusted parameter "white list" through.
     def payment_params
-      params.require(:payment).permit(:total, :note, :notebook_id, :user_id, :recorder_id, :project_id, :periodic_payment_id, :kind)
+      params.require(:payment).permit(:total, :note, :notebook_id, :user_id, :recorder_id, :project_id, :periodic_payment_id, :kind, :total_text)
     end
 end

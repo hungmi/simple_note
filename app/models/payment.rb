@@ -10,4 +10,6 @@ class Payment < ApplicationRecord
 	enum kind: { outcome: 0, income: 1, ignore: 2 }
 	scope :today, -> { where("created_at > ?", Time.zone.today) }
 	scope :yesterday, -> { where("created_at < ? AND created_at > ?", Time.zone.today, Time.zone.today - 1.day) }
+
+	attr_accessor :total_text
 end
