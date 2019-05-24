@@ -65,7 +65,7 @@
         <% if Project.first.present? %>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <% Project.all.pluck(:name, :id).map do |name, id| %>
-              <label class="btn <%= id == payment.project_id ? 'btn-primary active' : 'btn-secondary' %>">
+              <label class="btn px-2 <%= id == payment.project_id ? 'btn-primary active' : 'btn-secondary' %>">
                 <%= radio_button_tag 'project_id', id, id == payment.project_id %> <%= name %>
               </label>
             <% end %>
