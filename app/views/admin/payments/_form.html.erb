@@ -6,27 +6,26 @@
         <%= f.text_area :total_text, autofocus: true, class: "form-control" %>
       </div>
 
-      <% if false # use total_text instead %>
-        <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
-          <%#= f.label :total %>
-          <%= f.number_field :total, value: f.object.total.present? ? f.object.total.to_i : nil, pattern: "[0-9]*", class: "form-control form-control-sm #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
-          <% if payment.errors[:total].present? %>
-      	    <div class="invalid-feedback">
-      	      <%= payment.errors[:total].join(", ") %>
-      	    </div>
-          <% end %>
-        </div>
+      <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
+        <%#= f.label :total %>
+        <%= f.number_field :total, value: f.object.total.present? ? f.object.total.to_i : nil, pattern: "[0-9]*", placeholder: "金額", class: "form-control form-control-sm #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:total].present? %>
+    	    <div class="invalid-feedback">
+    	      <%= payment.errors[:total].join(", ") %>
+    	    </div>
+        <% end %>
+      </div>
+    
+      <div class="form-group <%= payment.errors[:note].present? ? 'has-danger' : '' %>">
+        <%#= f.label :note %>
+        <%= f.rich_text_area :note, placeholder: "備註", class: "form-control #{payment.errors[:note].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:note].present? %>
+          <div class="invalid-feedback">
+            <%= payment.errors[:note].join(", ") %>
+          </div>
+        <% end %>
+      </div>
       
-        <div class="form-group <%= payment.errors[:note].present? ? 'has-danger' : '' %>">
-          <%#= f.label :note %>
-          <%= f.rich_text_area :note, class: "form-control #{payment.errors[:note].present? ? 'is-invalid' : ''}" %>
-          <% if payment.errors[:note].present? %>
-            <div class="invalid-feedback">
-              <%= payment.errors[:note].join(", ") %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
 
       <div class="form-group <%= payment.errors[:kind].present? ? 'has-danger' : '' %>">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
