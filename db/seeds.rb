@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 unless (@user = User.first).present?
-	@user = User.create(name: "test_user", password: "123456")
+	@user = User.create(name: "test", password: "123456")
 end
 
 @first_notebook = Notebook.create({
