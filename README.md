@@ -1,24 +1,10 @@
-# README
+# Simple Note
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. `cd` to your code folder and clone this repository by `git clone https://github.com/hungmi/simple_note.git`
+2. `cd simple_note`
+##### NOTE: this will drop your current database
+3. Run `rails db:reset` to drop and create a new database for this app
+##### Instead of drop database:
+4. Run `rails db:seed` to generate a test notebook and some test payments to see (your database won't be dropped)
+---
+Final: run `rails s` to start the local server and you can visit http://localhost:3000
