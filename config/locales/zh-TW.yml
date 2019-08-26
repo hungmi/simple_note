@@ -35,7 +35,7 @@ zh-TW:
     attributes:
       payment:
         total: 金額
-        note: 筆記
+        note: 備註
         recorder_id: 記帳人
         periodic_payment_id: 週期名稱
         notebook_id: 賬本
