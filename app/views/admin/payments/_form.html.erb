@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group <%= payment.errors[:created_at].present? ? 'has-danger' : '' %>">
-          <%= f.datetime_field :created_at, class: "form-control form-control-sm #{payment.errors[:created_at].present? ? 'is-invalid' : ''}" %>
+          <%= f.datetime_field :created_at, value: payment.created_at.strftime("%Y-%m-%dT%H:%M"), class: "form-control form-control-sm #{payment.errors[:created_at].present? ? 'is-invalid' : ''}" %>
           <% if payment.errors[:created_at].present? %>
             <div class="invalid-feedback">
               <%= payment.errors[:created_at].join(", ") %>
