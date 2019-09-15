@@ -7,7 +7,7 @@ class Admin::PaymentsController < AdminController
   def index
     authorize [:admin, :payment], :index?
     dates = Payment.order(Arel.sql("created_at DESC")).pluck(Arel.sql("date(created_at)")).uniq
-    @pagy, @payments = pagy(@q.result(distinct: true).order(id: :desc), items: 20)
+    @pagy, @payments = pagy(@q.result(distinct: true).order(created_at: :desc), items: 20)
   end
 
   # GET /payments/1
@@ -92,6 +92,6 @@ class Admin::PaymentsController < AdminController
 
     # Only allow a trusted parameter "white list" through.
     def payment_params
-      params.require(:payment).permit(:total, :note, :notebook_id, :user_id, :recorder_id, :project_id, :periodic_payment_id, :kind, :total_text)
+      params.require(:payment).permit(:created_at, :total, :note, :notebook_id, :user_id, :recorder_id, :project_id, :periodic_payment_id, :kind, :total_text)
     end
 end

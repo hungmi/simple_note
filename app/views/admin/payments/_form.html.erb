@@ -2,30 +2,38 @@
 <%= form_with model: [:admin, payment], local: true, class: "mb-5" do |f| %>
   <div class="row">
     <div class="offset-lg-3 col-lg-6">
-      <div class="form-group">
-        <%= f.text_area :total_text, autofocus: true, class: "form-control" %>
-      </div>
+      <% if payment.new_record? %>
+        <div class="form-group">
+          <%= f.text_area :total_text, autofocus: true, class: "form-control" %>
+        </div>
+      <% else %>
+        <div class="form-group <%= payment.errors[:note].present? ? 'has-danger' : '' %>">
+          <%= f.rich_text_area :note, placeholder: "備註", class: "form-control #{payment.errors[:note].present? ? 'is-invalid' : ''}" %>
+          <% if payment.errors[:note].present? %>
+            <div class="invalid-feedback">
+              <%= payment.errors[:note].join(", ") %>
+            </div>
+          <% end %>
+        </div>
 
-      <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
-        <%#= f.label :total %>
-        <%= f.number_field :total, value: f.object.total.present? ? f.object.total.to_i : nil, pattern: "[0-9]*", placeholder: "金額", class: "form-control form-control-sm #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
-        <% if payment.errors[:total].present? %>
-    	    <div class="invalid-feedback">
-    	      <%= payment.errors[:total].join(", ") %>
-    	    </div>
-        <% end %>
-      </div>
-    
-      <div class="form-group <%= payment.errors[:note].present? ? 'has-danger' : '' %>">
-        <%#= f.label :note %>
-        <%= f.rich_text_area :note, placeholder: "備註", class: "form-control #{payment.errors[:note].present? ? 'is-invalid' : ''}" %>
-        <% if payment.errors[:note].present? %>
-          <div class="invalid-feedback">
-            <%= payment.errors[:note].join(", ") %>
-          </div>
-        <% end %>
-      </div>
-      
+        <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
+          <%= f.number_field :total, value: f.object.total.present? ? f.object.total.to_i : nil, pattern: "[0-9]*", placeholder: "金額", class: "form-control form-control-sm #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
+          <% if payment.errors[:total].present? %>
+            <div class="invalid-feedback">
+              <%= payment.errors[:total].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group <%= payment.errors[:created_at].present? ? 'has-danger' : '' %>">
+          <%= f.datetime_field :created_at, class: "form-control form-control-sm #{payment.errors[:created_at].present? ? 'is-invalid' : ''}" %>
+          <% if payment.errors[:created_at].present? %>
+            <div class="invalid-feedback">
+              <%= payment.errors[:created_at].join(", ") %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
 
       <div class="form-group <%= payment.errors[:kind].present? ? 'has-danger' : '' %>">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -102,3 +110,9 @@
     }
   })
 </script>
+
+<style>
+  trix-toolbar {
+    display: none;
+  }
+</style>
