@@ -20,6 +20,14 @@ require("@rails/actiontext")
 
 import "timeago"
 
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register('/service-worker.js', { scope: './' })
+    .then(function(reg) {
+      console.log('[Companion]', 'Service worker registered!');
+      console.log(reg);
+    });
+}
+
 document.addEventListener("turbolinks:load", function() {
 	$("form#payment_search input[type='text'], form#payment_search select").on("change", function() {
 		if (!$("form#payment_search").hasClass("submitting")) {

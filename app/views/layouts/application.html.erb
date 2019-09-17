@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel='manifest' href='/manifest.json'>
+    <!-- icon in the highest resolution we need it for -->
+    <link rel="icon" sizes="192x192" href="<%= asset_path('logo.jpg') %>">
+    <!-- reuse same icon for Safari -->
+    <link rel="apple-touch-icon" href="<%= asset_path('logo.jpg') %>">
     <title>SimpleNote</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
