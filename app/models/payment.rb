@@ -9,7 +9,11 @@ class Payment < ApplicationRecord
 
 	enum kind: { outcome: 0, income: 1, ignore: 2 }
 	scope :today, -> { where("created_at > ?", Time.zone.today) }
-	scope :yesterday, -> { where("created_at < ? AND created_at > ?", Time.zone.today, Time.zone.today - 1.day) }
 
 	attr_accessor :total_text
+
+	def self.daily_outcome_avg(project_id)
+		payments = Payment.where(project_id: project_id, notebook: Notebook.find_by(name: "生活"))
+		(payments.outcome.sum(:total) / payments.outcome.pluck("DATE(created_at)").uniq.size).to_i
+	end
 end

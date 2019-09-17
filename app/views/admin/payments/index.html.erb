@@ -16,8 +16,22 @@
 	<% if params[:q].present? %>
 		<%= I18n.t("text.search_result") %>：<%= @q.result(distinct: true).size %>
 	<% else %>
-		今日支出 <%= Payment.outcome.today.sum(:total).to_i %>
-		昨日支出 <%= Payment.outcome.yesterday.sum(:total).to_i %>
+		<span class="mr-2">今日吃
+		<%= link_to admin_payments_path(q: { notebook_id_eq: 1, project_id_eq: 1, created_at_gteq: Time.zone.today.beginning_of_day }) do %>
+			<%= Payment.outcome.today.where(project_id: 1).sum(:total).to_i %>
+		<% end %></span>
+		<span class="mr-5">非吃
+		<%= link_to admin_payments_path(q: { notebook_id_eq: 1, project_id_not_eq: 1, created_at_gteq: Time.zone.today.beginning_of_day }) do %>
+			<%= Payment.outcome.today.where.not(project_id: 1).sum(:total).to_i %>
+		<% end %></span>
+		<span class="mr-2">日均吃
+		<%= link_to admin_payments_path(q: { notebook_id_eq: 1, project_id_eq: 1 }) do %>
+			<%= Payment.daily_outcome_avg(1) %>
+		<% end %></span>
+		<span>非吃
+		<%= link_to admin_payments_path(q: { notebook_id_eq: 1, project_id_not_eq: 1 }) do %>
+			<%= Payment.daily_outcome_avg(Project.where.not(id: 1).pluck(:id)) %>
+		<% end %></span>
 	<% end %>
 </div>
 
