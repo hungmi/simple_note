@@ -29,3 +29,7 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore hivemind local development setting
+.overmind.env
+Procfile.dev

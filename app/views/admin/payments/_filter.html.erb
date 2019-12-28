@@ -1,16 +1,24 @@
 <%= search_form_for [:admin, @q] do |f| %>
-	<div class="form-row">
+	<div class="form-row" data-controller="payments">
     <div class="form-group col-lg-3 col-sm-4">
       <%= f.label :total_eq, I18n.t("text.filter.total_eq") %>
       <%= f.text_field :total_eq, value: params[:q].try(:[], :total_eq), pattern: "[0-9]*", class: "form-control form-control-sm" %>
     </div>
     <div class="form-group col-lg-3 col-sm-4 col-xs-6">
       <%= f.label :created_at_gteq, "從" %>
-      <%= f.date_field :created_at_gteq, value: params[:q].try(:[], :created_at_gteq), max: params[:q].try(:[], :created_at_lteq) || (Time.zone.today - 1.day).strftime("%F"), class: "form-control form-control-sm" %>
+      <%= f.date_field :created_at_gteq, value: params[:q].try(:[], :created_at_gteq), max: params[:q].try(:[], :created_at_lteq) || (Time.zone.today - 1.day).strftime("%F"), class: "form-control form-control-sm", data: { target: "payments.minDate" } %>
     </div>
     <div class="form-group col-lg-3 col-sm-4 col-xs-6">
       <%= f.label :created_at_lteq, "到" %>
-      <%= f.date_field :created_at_lteq, value: params[:q].try(:[], :created_at_lteq), min: params[:q].try(:[], :created_at_gteq), max: Time.zone.today.strftime("%F"), class: "form-control form-control-sm" %>
+      <%= f.date_field :created_at_lteq, value: params[:q].try(:[], :created_at_lteq), min: params[:q].try(:[], :created_at_gteq), max: Time.zone.today.strftime("%F"), class: "form-control form-control-sm", data: { target: "payments.maxDate" } %>
+    </div>
+    <div class="form-group col-lg-3 col-sm-4 col-xs-6">
+      <select class="form-control" data-action="change->payments#setDateFilter">
+        <option>選擇天數</option>
+        <% [7, 14, 30, 60, 90, 180].each do |number| %>
+          <option value="<%= number.days.ago.strftime('%Y-%m-%d') %>"><%= number %></option>
+        <% end %>
+      </select>
     </div>
     <div class="form-group col-12">
       <div class="btn-group btn-group-toggle mt-3 pr-md-3" data-toggle="buttons">
