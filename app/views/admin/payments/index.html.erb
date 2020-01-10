@@ -1,9 +1,10 @@
-<h1 class="h2">
-  <%= Payment.model_name.human %><%= I18n.t("text.index") %><%= link_to "統計", summary_admin_payments_path, style: "font-size: 16px; margin-left: 20px;" %>
+<div>
+  本月總花費 <strong><%= Payment.where("created_at >= ?", Time.zone.today.at_beginning_of_month).outcome.sum(:total).to_i %></strong>
+  <%= link_to "統計", summary_admin_payments_path, style: "margin-left: 20px;" %>
   <%= link_to "#paymentAdvanceSearch", class: "d-print-none btn btn-link float-right", data: { toggle: "collapse" } do %>
   	<i class="material-icons">&#xE152;</i>
   <% end %>
-</h1>
+</div>
 
 <div class="w-100 d-print-none mb-4 collapse <%= 'show' if params[:q].present? %>" id="paymentAdvanceSearch">
 	<div class="card w-100">
@@ -13,11 +14,7 @@
 	</div>
 </div>
 
-<div class="mt-3 mb-4">
-	本月總花費 <strong><%= Payment.where("created_at >= ?", Time.zone.today.at_beginning_of_month).outcome.sum(:total).to_i %></strong>
-</div>
-
-<div class="mt-3 mb-4">
+<div class="my-2">
 	<% if params[:q].present? %>
 		<table class="mt-3 table table-sm table-responsive-sm" style="width: auto;">
 			<thead>
