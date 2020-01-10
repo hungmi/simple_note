@@ -65,4 +65,5 @@ gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'redis', '~> 4.0'
 gem 'pagy'
+gem 'oj'
 gem 'whenever', require: false
