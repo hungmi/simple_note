@@ -50,7 +50,7 @@
 	<% end %>
 </div>
 
-<%== pagy_bootstrap_combo_nav_js(@pagy) %>
+<%== pagy_bootstrap_combo_nav_js(@pagy, "js-admin-payments-pagy") %>
 <div class="my-4">
 	<% if not_desktop? %>
   	<%= render @payments %>
