@@ -65,5 +65,5 @@ set :ssh_options, {
 	forward_agent: false,
 	auth_methods: %w(publickey)
 }
-set :branch, proc { `git rev-parse --abbrev-ref master`.chomp }
+set :branch, proc { `git rev-parse --abbrev-ref gcp`.chomp }
 set :rails_env, "production"

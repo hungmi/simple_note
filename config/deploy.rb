@@ -1,8 +1,16 @@
-# config valid for current version and patch releases of Capistrano
-lock "~> 3.14.1"
-
 set :application, "simple_note"
-set :repo_url, "git@example.com:me/simple_note.git"
+set :repo_url, "git@github.com:hungmi/simple_note.git"
+
+# Deploy to the user's home directory
+set :deploy_to, "/home/deploy/#{fetch :application}"
+set :db_backup_path, "/home/deploy/#{fetch :application}/db_backups"
+
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
+
+# Only keep the last 5 releases to save disk space
+set :keep_releases, 5
+# config valid for current version and patch releases of Capistrano
+lock "~> 3.14.0"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -15,7 +23,7 @@ set :repo_url, "git@example.com:me/simple_note.git"
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
-# set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
+set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :false
 
 # Default value for :pty is false
 # set :pty, true
