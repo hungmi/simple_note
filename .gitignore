@@ -33,3 +33,5 @@ yarn-debug.log*
 # Ignore hivemind local development setting
 .overmind.env
 Procfile.dev
+
+/config/credentials/production.key
