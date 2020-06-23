@@ -59,3 +59,11 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+server '34.80.2.68', user: 'deploy', roles: %w{app db web}
+set :ssh_options, {
+	keys: %w(/Users/hungmi/.ssh/polish-design),
+	forward_agent: false,
+	auth_methods: %w(publickey)
+}
+set :branch, proc { `git rev-parse --abbrev-ref master`.chomp }
+set :rails_env, "production"
