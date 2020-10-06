@@ -21,6 +21,7 @@ zh-TW:
       project_id_eq: 專案
       notebook_id_eq: 賬本
       total_eq: 金額符合
+      action_text_rich_text_body_cont: 備註包含
   flash:
     create_success: 建立成功。
     update_success: 更新成功。

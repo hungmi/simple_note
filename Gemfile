@@ -55,6 +55,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "nokogiri", ">= 1.10.4"
 gem 'bootstrap', '~> 4.3.1'
+gem 'pry', '0.12.2'
 gem 'awesome_rails_console', group: [:development]
 gem 'pundit'
 gem 'sidekiq'
