@@ -2,6 +2,7 @@
   "name": "simple_note",
   "private": true,
   "dependencies": {
+    "@hotwired/turbo": "^7.0.0-beta.3",
     "@rails/actioncable": "*",
     "@rails/actiontext": "*",
     "@rails/activestorage": "*",
@@ -12,14 +13,13 @@
     "jquery": "^3.3.1",
     "stimulus": "^1.1.1",
     "timeago": "^1.6.5",
-    "trix": "^1.2.0",
-    "turbolinks": "^5.2.0"
+    "trix": "^1.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.10.1"
   },
   "engines": {
-    "yarn": "1.19.1"
+    "yarn": "1.22.10"
   }
 }

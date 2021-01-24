@@ -4,7 +4,7 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start()
-require("turbolinks").start()
+import Turbo from "@hotwired/turbo"
 require("@rails/activestorage").start()
 require("channels")
 
@@ -28,7 +28,7 @@ if (navigator.serviceWorker) {
     });
 }
 
-document.addEventListener("turbolinks:load", function() {
+document.addEventListener("turbo:load", function() {
 	$("form#payment_search input[type='text'], form#payment_search select").on("change", function() {
 		if (!$("form#payment_search").hasClass("submitting")) {
 			$("form#payment_search").addClass("submitting")
