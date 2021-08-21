@@ -53,7 +53,7 @@ class Admin::PaymentsController < AdminController
       flash[:success] = I18n.t('flash.create_success')
       redirect_to admin_payments_path(anchor: "payment-#{@payment.id}")
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -63,7 +63,7 @@ class Admin::PaymentsController < AdminController
       flash[:success] = I18n.t('flash.update_success')
       redirect_to admin_payments_path(anchor: "payment-#{@payment.id}")
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
