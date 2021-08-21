@@ -19,7 +19,7 @@ class Admin::SessionsController < AdminController
       end
 		else
       flash.now[:danger] = "帳號或密碼錯誤。"
-			render :new
+			render :new, status: :unprocessable_entity
 		end
 	end
 
