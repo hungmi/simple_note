@@ -32,7 +32,7 @@ class Admin::PaymentsController < AdminController
   def create
     success = true
     if payment_params[:total_text].present?
-      total_texts_arr = payment_params[:total_text].split("\r\n")
+      total_texts_arr = payment_params[:total_text].split(/\r?\n/)
       total_texts_arr.each do |total_text|
         price = total_text[/\d+$/]
         note = total_text[0..(total_text.length - price.length - 1)] if price.present? && total_text.length > price.length
