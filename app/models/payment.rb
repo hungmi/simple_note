@@ -21,4 +21,15 @@ class Payment < ApplicationRecord
 			0
 		end
 	end
+
+	def self.time_shortcuts
+		{
+			"早餐" => Time.zone.today.beginning_of_day + 10.hours,
+			"午餐" => Time.zone.today.beginning_of_day + 13.hours,
+			"晚餐" => Time.zone.today.beginning_of_day + 19.hours,
+			"昨早" => 1.day.ago.beginning_of_day + 10.hours,
+			"昨午" => 1.day.ago.beginning_of_day + 13.hours,
+			"昨晚" => 1.day.ago.beginning_of_day + 19.hours,
+		}
+	end
 end

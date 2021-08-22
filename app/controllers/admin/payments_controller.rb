@@ -31,12 +31,20 @@ class Admin::PaymentsController < AdminController
   # POST /payments
   def create
     success = true
+    specified_created_at = nil
     if payment_params[:total_text].present?
       total_texts_arr = payment_params[:total_text].split(/\r?\n/)
       total_texts_arr.each do |total_text|
         price = total_text[/\d+$/]
         note = total_text[0..(total_text.length - price.length - 1)] if price.present? && total_text.length > price.length
-        @payment = Payment.new( payment_params.merge(total: price, note: note.try(:strip)) )
+        Payment.time_shortcuts.map do |k, time|
+          if note.include? k
+            specified_created_at = time
+            note = note.gsub('昨', '') if k.include? '昨'
+          end
+        end
+
+        @payment = Payment.new( payment_params.merge(total: price, note: note.try(:strip), created_at: specified_created_at) )
         authorize [:admin, @payment]
         unless @payment.save
           success = false
