@@ -1,0 +1,67 @@
+<div>
+  本月總花費 <strong><%= Payment.where("created_at >= ?", Time.zone.today.at_beginning_of_month).outcome.sum(:total).to_i %></strong>
+  <%= link_to "統計", summary_admin_payments_path, style: "margin-left: 20px;" %>
+  <%= link_to "#paymentAdvanceSearch", class: "d-print-none btn btn-link float-right", data: { toggle: "collapse" } do %>
+  	<i class="material-icons">&#xE152;</i>
+  <% end %>
+</div>
+
+<div class="w-100 d-print-none mb-4 collapse <%= 'show' if params[:q].present? %>" id="paymentAdvanceSearch">
+	<div class="card w-100">
+		<div class="card-body">
+			<%= render "filter" %>
+		</div>
+	</div>
+</div>
+
+<div class="my-2">
+	<% if params[:q].present? %>
+		<table class="mt-3 table table-sm table-responsive-sm" style="width: auto;">
+			<thead>
+				<tr>
+					<th>吃</th>
+					<th>非吃</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= @q.result.outcome.where(project_id: 1).sum(:total).to_i %></td>
+					<td><%= @q.result.outcome.where.not(project_id: 1).sum(:total).to_i %></td>
+				</tr>
+			</tbody>
+		</table>
+	<% else %>
+		<span class="mr-2">今日吃
+		<%= link_to admin_payments_path(q: { notebook_id_eq: 1, project_id_eq: 1, created_at_gteq: Time.zone.today.beginning_of_day }) do %>
+			<%= Payment.outcome.today.where(project_id: 1).sum(:total).to_i %>
+		<% end %></span>
+		<span class="mr-4">非吃
+		<%= link_to admin_payments_path(q: { notebook_id_eq: 1, project_id_not_eq: 1, created_at_gteq: Time.zone.today.beginning_of_day }) do %>
+			<%= Payment.outcome.today.where.not(project_id: 1).sum(:total).to_i %>
+		<% end %></span>
+		<span class="mr-2">日均吃
+		<%= link_to admin_payments_path(q: { notebook_id_eq: 1, project_id_eq: 1 }) do %>
+			<%= Payment.daily_outcome_avg(1) %>
+		<% end %></span>
+		<span>非吃
+		<%= link_to admin_payments_path(q: { notebook_id_eq: 1, project_id_not_eq: 1 }) do %>
+			<%= Payment.daily_outcome_avg(Project.where.not(id: 1).pluck(:id)) %>
+		<% end %></span>
+	<% end %>
+</div>
+
+<%== pagy_bootstrap_combo_nav_js(@pagy, pagy_id: "js-admin-payments-pagy") %>
+<div class="my-4">
+	<% if not_desktop? %>
+  	<%= render @payments %>
+  <% else %>
+  	<%= render partial: "payments_table", locals: { payments: @payments } %>
+  <% end %>
+</div>
+<%== pagy_bootstrap_combo_nav_js(@pagy) %>
+
+<div class="btn-abs-wrapper">
+	<%= link_to new_admin_payment_path, class: "btn btn-success btn-icon--circle" do %>
+		<i class="material-icons">&#xE145;</i>
+	<% end %>
+</div>

@@ -46,7 +46,7 @@ gem "bootsnap", require: false
 # gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -70,3 +70,16 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "nokogiri", ">= 1.10.4"
+# gem 'bootstrap', '~> 4.3.1'
+gem 'pry'
+gem 'pry-rails', group: [:development]
+gem 'pundit'
+gem 'browser'
+gem 'ransack'
+gem 'aws-sdk-s3', require: false
+gem 'bcrypt', '~> 3.1.7'
+gem 'pagy'
+gem 'oj'
+gem 'whenever', require: false

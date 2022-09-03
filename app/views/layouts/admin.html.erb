@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='manifest' href='/manifest.json'>
+    <!-- icon in the highest resolution we need it for -->
+    <link rel="icon" sizes="192x192" href="<%= asset_path('logo.jpg') %>">
+    <!-- reuse same icon for Safari -->
+    <link rel="apple-touch-icon" href="<%= asset_path('logo.jpg') %>">
+    <title><%= meta_title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbo-track': 'reload' %>
+    <%#= stylesheet_pack_tag 'admin', 'data-turbo-track': 'reload' %>
+    <%= csrf_meta_tags %>
+    <%#= favicon_link_tag "favicon.ico" %>
+    <%= javascript_include_tag 'admin', 'data-turbo-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/earlyaccess/notosanstc.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.1.0/tablesort.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.1.0/sorts/tablesort.number.min.js"></script>
+    <script>
+      document.addEventListener("turbo:before-cache", function() {
+        $("#navbarSupportedContent").collapse('hide')
+      })
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.3.1/dist/materia/bootstrap.min.css" integrity="sha256-8CkGrzjOaLKQcuIPUmdEEJQ07Q83rdadwUrePJTaI4I=" crossorigin="anonymous">
+  </head>
+  <body class='admin <%= "#{controller_name}-controller" %> <%= "#{action_name}-action" %>'>
+    <%= render "admin/common/nav_top" if user_signed_in? %>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

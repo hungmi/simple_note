@@ -1,0 +1,38 @@
+<%= form_with model: [:admin, periodic_payment], local: true, class: "mb-5" do |f| %>
+  <div class="row">
+    <div class="offset-lg-3 col-lg-6">
+      <div class="form-group <%= periodic_payment.errors[:total].present? ? 'has-danger' : '' %>">
+        <%= f.label :total %>
+        <%= f.number_field :total, autofocus: true, pattern: "[0-9]*", required: true, class: "form-control #{periodic_payment.errors[:total].present? ? 'is-invalid' : ''}" %>
+        <% if periodic_payment.errors[:total].present? %>
+    	    <div class="invalid-feedback">
+    	      <%= periodic_payment.errors[:total].join(", ") %>
+    	    </div>
+        <% end %>
+      </div>
+    
+      <div class="form-group <%= periodic_payment.errors[:scheduled_day].present? ? 'has-danger' : '' %>">
+        <%= f.label :scheduled_day %>
+        <%= f.number_field :scheduled_day, class: "form-control #{periodic_payment.errors[:scheduled_day].present? ? 'is-invalid' : ''}", placeholder: "每月 5 號就填 5，月底請填 30", min: 1, max: 30 %>
+        <% if periodic_payment.errors[:scheduled_day].present? %>
+    	    <div class="invalid-feedback">
+    	      <%= periodic_payment.errors[:scheduled_day].join(", ") %>
+    	    </div>
+        <% end %>
+      </div>
+
+      <div class="form-group <%= periodic_payment.errors[:note].present? ? 'has-danger' : '' %>">
+        <%= f.label :note %>
+        <%= f.rich_text_area :note, class: "form-control #{periodic_payment.errors[:note].present? ? 'is-invalid' : ''}" %>
+        <% if periodic_payment.errors[:note].present? %>
+          <div class="invalid-feedback">
+            <%= periodic_payment.errors[:note].join(", ") %>
+          </div>
+        <% end %>
+      </div>
+    
+      <%= link_to I18n.t('text.cancel'), admin_periodic_payments_path, class: "btn btn-link text-danger" %>
+      <%= f.submit class: "btn btn-primary float-right" %>
+    </div>
+  </div>
+<% end %>

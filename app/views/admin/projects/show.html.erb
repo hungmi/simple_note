@@ -1,0 +1,10 @@
+<%= link_to admin_projects_path(anchor: "project-#{@project.id}"), class: "btn btn-link" do %>
+  &#8592; <%= I18n.t('text.back') %>
+<% end %>
+<div class="row">
+  <div class="col-lg-9">
+  	<div class="row">
+			<%= render @project %>
+		</div>
+	</div>
+</div>

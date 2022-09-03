@@ -1,0 +1,46 @@
+<div class="col-sm-6 col-md-4 mb-4" id="periodic_payment-<%= periodic_payment.id %>">
+	<div class="card p-3">
+		<div class="list-group list-group-flush">
+		  <li class="list-group-item flex-column align-items-start">
+		    <div class="d-flex w-100 justify-content-between">
+		      <h5 class="mb-1"><%= PeriodicPayment.human_attribute_name("total") %></h5>
+		    </div>
+		    <p class="mb-1">
+		    	<% if periodic_payment.total.present? %>
+	          <%= periodic_payment.total %>
+	        <% else %>
+	          <span class="text-muted"><%= I18n.t("text.attr_no_value") %></span>
+	        <% end %>
+	      </p>
+		  </li>
+		  <li class="list-group-item flex-column align-items-start">
+		    <div class="d-flex w-100 justify-content-between">
+		      <h5 class="mb-1"><%= PeriodicPayment.human_attribute_name("scheduled_day") %></h5>
+		    </div>
+		    <p class="mb-1">
+		    	<% if periodic_payment.scheduled_day.present? %>
+	          <%= periodic_payment.scheduled_day %>
+	        <% else %>
+	          <span class="text-muted"><%= I18n.t("text.attr_no_value") %></span>
+	        <% end %>
+	      </p>
+		  </li>
+		  <li class="list-group-item flex-column align-items-start">
+		    <div class="d-flex w-100 justify-content-between">
+		      <h5 class="mb-1"><%= PeriodicPayment.human_attribute_name("note") %></h5>
+		    </div>
+		    <p class="mb-1">
+		    	<% if periodic_payment.note.present? %>
+	          <%= periodic_payment.note %>
+	        <% else %>
+	          <span class="text-muted"><%= I18n.t("text.attr_no_value") %></span>
+	        <% end %>
+	      </p>
+		  </li>
+		  <li class="list-group-item flex-column align-items-start">
+	      <%= link_to I18n.t('text.edit'), edit_admin_periodic_payment_path(periodic_payment), class: "btn btn-primary" %>
+	      <%= link_to I18n.t('text.destroy'), [:admin, periodic_payment], method: :delete, data: { confirm: I18n.t("text.confirm_destroy") }, class: "btn btn-danger btn-sm float-right" %>
+	    </li>
+		</div>
+	</div>
+</div>
