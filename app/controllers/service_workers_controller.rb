@@ -6,7 +6,9 @@ class ServiceWorkersController < ApplicationController
   end
 
   def manifest
-  	render "manifest.json"
+    respond_to do |format|
+      format.json { render "manifest" }
+    end
   end
 
   def offline
