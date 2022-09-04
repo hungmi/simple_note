@@ -8,8 +8,8 @@
 				<%= link_to("##{payment.project.name}", admin_payments_path(q: { project_id_eq: payment.project_id, notebook_id_eq: (params[:q][:notebook_id_eq] if params[:q].present?), recorder_id_eq: (params[:q][:recorder_id_eq] if params[:q].present?) })) if payment.project_id.present? %>
 				<%= link_to("##{payment.recorder.name}", admin_payments_path(q: { project_id_eq: (params[:q][:project_id_eq] if params[:q].present?), notebook_id_eq: (params[:q][:notebook_id_eq] if params[:q].present?), recorder_id_eq: payment.user_id })) if payment.user_id.present? %>
 			</span>
-			<%= link_to [:admin, payment], method: :delete, data: { confirm: I18n.t("text.confirm_destroy") }, class: "text-danger card-link" do %>
-				<i class="material-icons" style="font-size: 18px;">close</i>
+			<%= button_to [:admin, payment], method: :delete, form: { data: { turbo_confirm: I18n.t("text.confirm_destroy") } }, class: "text-danger btn btn-link px-2 py-1" do %>
+				&#10005;
 			<% end %>
 		</div>
 		<div style="flex: 1 0 60%;" class="mr-auto">
