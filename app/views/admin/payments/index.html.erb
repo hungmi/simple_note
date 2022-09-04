@@ -52,11 +52,7 @@
 
 <%== pagy_bootstrap_combo_nav_js(@pagy, pagy_id: "js-admin-payments-pagy") %>
 <div class="my-4">
-	<% if not_desktop? %>
-  	<%= render @payments %>
-  <% else %>
-  	<%= render partial: "payments_table", locals: { payments: @payments } %>
-  <% end %>
+	<%= render @payments %>
 </div>
 <%== pagy_bootstrap_combo_nav_js(@pagy) %>
 

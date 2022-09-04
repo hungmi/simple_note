@@ -1,6 +1,4 @@
 <div class="card mb-1 <%= 'border-info' if payment.created_at > Date.today %> <%= 'border-primary' if Time.zone.now - payment.updated_at < 10.minutes %>">
-  <!-- <div class="card-header">Header</div> -->
-  <%#= payment.created_at.strftime("%F") %>
   <div class="card-body py-2 d-flex justify-content-between align-content-between flex-wrap">
 		<div class="mr-auto" style="font-size: 22px; flex: 1 0 80px;">
 			<%= link_to payment.total.to_i, edit_admin_payment_path(payment) %></div>
