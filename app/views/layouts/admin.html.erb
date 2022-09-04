@@ -24,6 +24,9 @@
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.3.1/dist/materia/bootstrap.min.css" integrity="sha256-8CkGrzjOaLKQcuIPUmdEEJQ07Q83rdadwUrePJTaI4I=" crossorigin="anonymous">
     <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbo-track': 'reload' %>
+    <% if @no_turbo_cache %>
+      <meta name="turbo-cache-control" content="no-cache">
+    <% end %>
   </head>
   <body class='admin <%= "#{controller_name}-controller" %> <%= "#{action_name}-action" %>'>
     <%= render "admin/common/nav_top" if user_signed_in? %>

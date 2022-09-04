@@ -16,6 +16,7 @@ class Admin::PaymentsController < AdminController
 
   # GET /payments/new
   def new
+    @no_turbo_cache = true
     @payment = Payment.new
     notebook_usage_counts = Payment.select(Arel.sql("count(notebook_id) as count, notebook_id")).group(:notebook_id)
     mostly_used_notebook_count = notebook_usage_counts.map(&:count).max
@@ -26,6 +27,7 @@ class Admin::PaymentsController < AdminController
 
   # GET /payments/1/edit
   def edit
+    @no_turbo_cache = true
   end
 
   # POST /payments
