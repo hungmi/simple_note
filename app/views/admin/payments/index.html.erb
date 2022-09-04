@@ -50,11 +50,15 @@
 	<% end %>
 </div>
 
-<%== pagy_bootstrap_combo_nav_js(@pagy, pagy_id: "js-admin-payments-pagy") %>
-<div class="my-4">
-	<%= render @payments %>
-</div>
-<%== pagy_bootstrap_combo_nav_js(@pagy) %>
+<%= turbo_frame_tag "payments" do %>
+	<%== pagy_bootstrap_combo_nav_js(@pagy, pagy_id: "js-admin-payments-pagy") %>
+
+	<div class="my-4">
+		<%= render @payments %>
+	</div>
+	
+	<%== pagy_bootstrap_combo_nav_js(@pagy) %>
+<% end %>
 
 <div class="btn-abs-wrapper">
 	<%= link_to new_admin_payment_path, class: "btn btn-success btn-icon--circle" do %>
