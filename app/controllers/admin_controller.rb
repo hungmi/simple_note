@@ -6,7 +6,7 @@ class AdminController < ApplicationController
 	private
 		def handle_record_not_found
       respond_to do |format|
-        format.js { render "admin/common/record_not_found", status: 404 }
+        format.html { render plain: "Not found.", status: 404 }
       end
     end
 end
