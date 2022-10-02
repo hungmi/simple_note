@@ -1,12 +1,13 @@
 class Admin::PaymentsController < AdminController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
-  before_action :set_search
   skip_after_action :verify_authorized, only: :summary
 
   # GET /payments
   def index
     authorize [:admin, :payment], :index?
-    dates = Payment.order(Arel.sql("created_at DESC")).pluck(Arel.sql("date(created_at)")).uniq
+    @q = current_user.payments.ransack(params[:q])
+    @nav_search_symbol = :total_eq
+    @nav_search_placeholder = nil
     @pagy, @payments = pagy(@q.result(distinct: true).order(created_at: :desc), items: 6)
   end
 
@@ -90,14 +91,8 @@ class Admin::PaymentsController < AdminController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_payment
-      @payment = Payment.find(params[:id])
+      @payment = current_user.payments.find(params[:id])
     	authorize [:admin, @payment]
-    end
-
-    def set_search
-      @q = Payment.ransack(params[:q])
-      @nav_search_symbol = :total_eq
-      @nav_search_placeholder = nil
     end
 
     # Only allow a trusted parameter "white list" through.
