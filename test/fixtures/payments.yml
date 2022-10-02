@@ -1,0 +1,9 @@
+one:
+  total: 100
+  recorder: one
+  notebook: one
+
+two:
+  total: 999
+  recorder: two
+  notebook: one

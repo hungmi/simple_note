@@ -1,0 +1,7 @@
+one:
+  name: "me"
+  password_digest: <%= BCrypt::Password.create('123456', cost: 1) %>
+
+two:
+  name: "she"
+  password_digest: <%= BCrypt::Password.create('123456', cost: 1) %>
