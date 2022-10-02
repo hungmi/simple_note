@@ -9,7 +9,7 @@ class Admin::SessionsController < AdminController
 
 	def create
 		authorize [:admin, :session], :create?
-		@user = User.find_by_name(params[:session][:user_name])
+		@user = User.find_by_name(params[:session][:username])
 		if @user.present? && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
 			if params[:session][:back_path].present?
