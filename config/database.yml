@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: simple_note_7_production
-  username: simple_note_7
-  password: <%= ENV["SIMPLE_NOTE_7_DATABASE_PASSWORD"] %>
+  # username: simple_note_7
+  # password: <%= ENV["SIMPLE_NOTE_7_DATABASE_PASSWORD"] %>

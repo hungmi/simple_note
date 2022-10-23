@@ -85,4 +85,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.hosts << "cf0e-114-46-68-16.ap.ngrok.io"
 end
