@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+cloudflared tunnel --config simple-note.yml run new-website > /dev/null &
+RAILS_ENV=production bin/rails assets:clobber
+RAILS_ENV=production bin/rails assets:precompile
+RAILS_ENV=production bin/rails server -p 3087 &
+
+# ps aux | grep puma
+# kill -9 server_pid
+
+# ps aux | grep cloudflared
+# cloudflared tunnel --config ~/.cloudflared/simple-note.yml run new-website > /dev/null &
+
+# ps aux | grep ngrok
+# ngrok http --log=stdout 3087 > /dev/null &
+# Visit http://localhost:4040/status
+# kill -9 ngrok_pid
