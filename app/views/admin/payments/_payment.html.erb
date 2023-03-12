@@ -1,22 +1,10 @@
-<div class="card mb-1 <%= 'border-info' if payment.created_at > Date.today %> <%= 'border-primary' if Time.zone.now - payment.updated_at < 10.minutes %>">
-  <div class="card-body py-2 d-flex justify-content-between align-content-between flex-wrap">
-		<div class="mr-auto" style="font-size: 22px; flex: 1 0 80px;">
-			<%= link_to payment.total.to_i, edit_admin_payment_path(payment) %></div>
-		<div class="d-flex justify-content-between align-items-center" style="flex: 1 0 50%;">
-			<span class="text-muted" style="font-size: 14px;">
-				<%= link_to("##{payment.notebook.name}", admin_payments_path(q: { project_id_eq: (params[:q][:project_id_eq] if params[:q].present?), notebook_id_eq: payment.notebook_id, recorder_id_eq: (params[:q][:recorder_id_eq] if params[:q].present?) })) if payment.notebook_id.present? %>
-				<%= link_to("##{payment.project.name}", admin_payments_path(q: { project_id_eq: payment.project_id, notebook_id_eq: (params[:q][:notebook_id_eq] if params[:q].present?), recorder_id_eq: (params[:q][:recorder_id_eq] if params[:q].present?) })) if payment.project_id.present? %>
-				<%= link_to("##{payment.recorder.name}", admin_payments_path(q: { project_id_eq: (params[:q][:project_id_eq] if params[:q].present?), notebook_id_eq: (params[:q][:notebook_id_eq] if params[:q].present?), recorder_id_eq: payment.user_id })) if payment.user_id.present? %>
-			</span>
-			<%= button_to [:admin, payment], method: :delete, form: { data: { turbo_confirm: I18n.t("text.confirm_destroy") } }, class: "text-danger btn btn-link px-2 py-1" do %>
-				&#10005;
-			<% end %>
-		</div>
-		<div style="flex: 1 0 60%;" class="mr-auto">
-	  	<%= payment.note %>
-	  </div>
-	  <div style="color: #aaa;">
-	  	<%= payment.created_at.strftime("%m/%d %H:%M") %>
-	  </div>
-  </div>
-</div>
+<article style="display: flex; justify-content: space-between;">
+    <%= link_to edit_admin_payment_path(payment) do %>
+        <%= payment.total.to_i %><br>
+        <%= payment.note %>
+    <% end %>
+    <%= payment.created_at.strftime("%m/%d %H:%M") %>
+    <%= button_to [:admin, payment], method: :delete, form: {data: { turbo_confirm: I18n.t("text.confirm_destroy") }, style: "margin-bottom: 0px;"}, class: "secondary", style: "margin-bottom: 0px;" do %>
+        &#10005;
+    <% end %>
+</article>

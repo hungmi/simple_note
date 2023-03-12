@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "admin/payments#index"
   get 'admin', to: redirect('/admin/payments')
   get '/service-worker.js' => "service_workers#service_worker"
   get '/manifest.json' => "service_workers#manifest"

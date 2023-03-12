@@ -128,6 +128,18 @@ GEM
     jmespath (1.6.1)
     jsbundling-rails (1.0.3)
       railties (>= 6.0.0)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -158,8 +170,6 @@ GEM
     nokogiri (1.13.8-arm64-darwin)
       racc (~> 1.4)
     oj (3.13.21)
-    pagy (5.10.1)
-      activesupport
     pg (1.4.3)
     pry (0.14.1)
       coderay (~> 1.1)
@@ -269,9 +279,9 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
+  kaminari
   nokogiri (>= 1.10.4)
   oj
-  pagy
   pg (~> 1.1)
   pry
   pry-rails

@@ -8,7 +8,7 @@ class Admin::PaymentsController < AdminController
     @q = current_user.payments.ransack(params[:q])
     @nav_search_symbol = :total_eq
     @nav_search_placeholder = nil
-    @pagy, @payments = pagy(@q.result(distinct: true).order(created_at: :desc), items: 6)
+    @payments = @q.result(distinct: true).order(created_at: :desc).page params[:page]
   end
 
   # GET /payments/1

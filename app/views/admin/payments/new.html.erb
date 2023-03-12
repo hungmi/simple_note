@@ -1,5 +1,7 @@
-<%= link_to admin_payments_path, class: "btn btn-link" do %>
-  &#8592; <%= I18n.t('text.back') %>
+<%= turbo_frame_tag "payments" do %>
+  <%= link_to admin_payments_path, class: "btn btn-link" do %>
+    &#8592; <%= I18n.t('text.back') %>
+  <% end %>
+  <!-- <h1 class="h2"><%#= I18n.t('text.new') %><%#= Payment.model_name.human %></h1> -->
+  <%= render "admin/payments/form", payment: @payment %>
 <% end %>
-<!-- <h1 class="h2"><%#= I18n.t('text.new') %><%#= Payment.model_name.human %></h1> -->
-<%= render "admin/payments/form", payment: @payment %>

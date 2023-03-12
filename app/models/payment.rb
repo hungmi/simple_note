@@ -1,4 +1,6 @@
 class Payment < ApplicationRecord
+	paginates_per 6
+	
 	validates :total, presence: true
 	has_rich_text :note
 	has_one :action_text_rich_text, class_name: 'ActionText::RichText', as: :record
