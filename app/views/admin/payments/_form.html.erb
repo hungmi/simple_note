@@ -1,103 +1,101 @@
 <%= notice_message(payment.errors.full_messages, "danger") if payment.errors.any? %>
 <%= form_with model: [:admin, payment], local: true, class: "mb-5" do |f| %>
-  <div class="row mb-5">
-    <div class="offset-lg-3 col-lg-6">
-      <% if payment.new_record? %>
-        <div class="form-group">
-          <%= f.text_area :total_text, autofocus: true, class: "form-control" %>
-        </div>
-      <% else %>
-        <div class="form-group <%= payment.errors[:note].present? ? 'has-danger' : '' %>">
-          <%= f.rich_text_area :note, placeholder: "備註", class: "form-control #{payment.errors[:note].present? ? 'is-invalid' : ''}" %>
-          <% if payment.errors[:note].present? %>
-            <div class="invalid-feedback">
-              <%= payment.errors[:note].join(", ") %>
-            </div>
-          <% end %>
-        </div>
+  <section style="margin-bottom: 5em;">
+    <% if payment.new_record? %>
+      <div class="form-group">
+        <%= f.text_area :total_text, autofocus: true, class: "form-control" %>
+      </div>
+    <% else %>
+      <div class="form-group <%= payment.errors[:note].present? ? 'has-danger' : '' %>">
+        <%= f.rich_text_area :note, placeholder: "備註", class: "form-control #{payment.errors[:note].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:note].present? %>
+          <div class="invalid-feedback">
+            <%= payment.errors[:note].join(", ") %>
+          </div>
+        <% end %>
+      </div>
 
-        <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
-          <%= f.number_field :total, value: f.object.total.present? ? f.object.total.to_i : nil, pattern: "[0-9]*", placeholder: "金額", class: "form-control form-control-sm #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
-          <% if payment.errors[:total].present? %>
-            <div class="invalid-feedback">
-              <%= payment.errors[:total].join(", ") %>
-            </div>
-          <% end %>
-        </div>
+      <div class="form-group <%= payment.errors[:total].present? ? 'has-danger' : '' %>">
+        <%= f.number_field :total, value: f.object.total.present? ? f.object.total.to_i : nil, pattern: "[0-9]*", placeholder: "金額", class: "form-control form-control-sm #{payment.errors[:total].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:total].present? %>
+          <div class="invalid-feedback">
+            <%= payment.errors[:total].join(", ") %>
+          </div>
+        <% end %>
+      </div>
 
-        <div class="form-group <%= payment.errors[:created_at].present? ? 'has-danger' : '' %>">
-          <%= f.datetime_field :created_at, value: payment.created_at.strftime("%Y-%m-%dT%H:%M"), class: "form-control form-control-sm #{payment.errors[:created_at].present? ? 'is-invalid' : ''}" %>
-          <% if payment.errors[:created_at].present? %>
-            <div class="invalid-feedback">
-              <%= payment.errors[:created_at].join(", ") %>
-            </div>
-          <% end %>
+      <div class="form-group <%= payment.errors[:created_at].present? ? 'has-danger' : '' %>">
+        <%= f.datetime_field :created_at, value: payment.created_at.strftime("%Y-%m-%dT%H:%M"), class: "form-control form-control-sm #{payment.errors[:created_at].present? ? 'is-invalid' : ''}" %>
+        <% if payment.errors[:created_at].present? %>
+          <div class="invalid-feedback">
+            <%= payment.errors[:created_at].join(", ") %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="form-group <%= payment.errors[:kind].present? ? 'has-danger' : '' %>">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <% Payment.kinds.keys.map do |name| %>
+          <label class="btn <%= name == payment.kind ? 'btn-primary active' : 'btn-secondary' %> <%= payment.errors[:kind].present? ? 'btn-danger' : '' %>">
+            <%= radio_button_tag 'payment[kind]', name, name == payment.kind %> <%= name %>
+          </label>
+        <% end %>
+      </div>
+      <%= f.text_field :kind, class: "d-none form-control #{payment.errors[:kind].present? ? 'is-invalid' : ''}" %>
+      <% if payment.errors[:kind].present? %>
+        <div class="invalid-feedback">
+          <%= payment.errors[:kind].join(", ") %>
         </div>
       <% end %>
-
-      <div class="form-group <%= payment.errors[:kind].present? ? 'has-danger' : '' %>">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <% Payment.kinds.keys.map do |name| %>
-            <label class="btn <%= name == payment.kind ? 'btn-primary active' : 'btn-secondary' %> <%= payment.errors[:kind].present? ? 'btn-danger' : '' %>">
-              <%= radio_button_tag 'payment[kind]', name, name == payment.kind %> <%= name %>
-            </label>
-          <% end %>
-        </div>
-        <%= f.text_field :kind, class: "d-none form-control #{payment.errors[:kind].present? ? 'is-invalid' : ''}" %>
-        <% if payment.errors[:kind].present? %>
-          <div class="invalid-feedback">
-            <%= payment.errors[:kind].join(", ") %>
-          </div>
-        <% end %>
-      </div>
-
-      <div class="form-group <%= payment.errors[:notebook].present? ? 'has-danger' : '' %>">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <% Notebook.all.pluck(:name, :id).map do |name, id| %>
-            <% checked = @default_notebook_id.present? ? (id == @default_notebook_id) : (id == payment.notebook_id) %>
-            <label class="btn <%= checked ? 'btn-primary active' : 'btn-secondary' %> <%= payment.errors[:notebook].present? ? 'btn-danger' : '' %>">
-              <%= radio_button_tag 'notebook_id', id, checked %> <%= name %>
-            </label>
-          <% end %>
-        </div>
-        <%= f.text_field :notebook_id, class: "d-none form-control #{payment.errors[:notebook].present? ? 'is-invalid' : ''}" %>
-        <% if payment.errors[:notebook].present? %>
-          <div class="invalid-feedback">
-            <%= payment.errors[:notebook].join(", ") %>
-          </div>
-        <% end %>
-      </div>
-
-      <div class="form-group <%= payment.errors[:project].present? ? 'has-danger' : '' %>">
-        <%#= f.label :project_id %>
-        <% if Project.first.present? %>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <% Project.all.pluck(:name, :id).map do |name, id| %>
-              <label class="btn <%= id == payment.project_id ? 'btn-primary active' : 'btn-secondary' %>">
-                <%= radio_button_tag 'project_id', id, id == payment.project_id %> <%= name %>
-              </label>
-            <% end %>
-            <label class="btn <%= payment.project_id.blank? ? 'btn-primary active' : 'btn-secondary' %>">
-              <%= radio_button_tag 'project_id', nil, payment.project_id.blank? %> 無
-            </label>
-          </div>
-          <%= f.text_field :project_id, class: "d-none form-control #{payment.errors[:project].present? ? 'is-invalid' : ''}" %>
-        <% else %>
-          <%= f.text_field :project_id, placeholder: "no projects available", class: "form-control", disabled: true %>
-        <% end %>
-        <% if payment.errors[:project_id].present? %>
-          <div class="invalid-feedback">
-            <%= payment.errors[:project_id].join(", ") %>
-          </div>
-        <% end %>
-      </div>
-
-      <%= f.hidden_field :user_id, value: current_user.id %>
-
-      <%= link_to I18n.t('text.cancel'), admin_payments_path, class: "btn btn-link text-danger" %>
-      <%= f.submit class: "btn btn-primary float-right" %>
     </div>
-  </div>
+
+    <div class="form-group <%= payment.errors[:notebook].present? ? 'has-danger' : '' %>">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <% Notebook.all.pluck(:name, :id).map do |name, id| %>
+          <% checked = @default_notebook_id.present? ? (id == @default_notebook_id) : (id == payment.notebook_id) %>
+          <label class="btn <%= checked ? 'btn-primary active' : 'btn-secondary' %> <%= payment.errors[:notebook].present? ? 'btn-danger' : '' %>">
+            <%= radio_button_tag 'notebook_id', id, checked %> <%= name %>
+          </label>
+        <% end %>
+      </div>
+      <%= f.text_field :notebook_id, class: "d-none form-control #{payment.errors[:notebook].present? ? 'is-invalid' : ''}" %>
+      <% if payment.errors[:notebook].present? %>
+        <div class="invalid-feedback">
+          <%= payment.errors[:notebook].join(", ") %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="form-group <%= payment.errors[:project].present? ? 'has-danger' : '' %>">
+      <%#= f.label :project_id %>
+      <% if Project.first.present? %>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <% Project.all.pluck(:name, :id).map do |name, id| %>
+            <label class="btn <%= id == payment.project_id ? 'btn-primary active' : 'btn-secondary' %>">
+              <%= radio_button_tag 'project_id', id, id == payment.project_id %> <%= name %>
+            </label>
+          <% end %>
+          <label class="btn <%= payment.project_id.blank? ? 'btn-primary active' : 'btn-secondary' %>">
+            <%= radio_button_tag 'project_id', nil, payment.project_id.blank? %> 無
+          </label>
+        </div>
+        <%= f.text_field :project_id, class: "d-none form-control #{payment.errors[:project].present? ? 'is-invalid' : ''}" %>
+      <% else %>
+        <%= f.text_field :project_id, placeholder: "no projects available", class: "form-control", disabled: true %>
+      <% end %>
+      <% if payment.errors[:project_id].present? %>
+        <div class="invalid-feedback">
+          <%= payment.errors[:project_id].join(", ") %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= f.hidden_field :user_id, value: current_user.id %>
+
+    <%= link_to I18n.t('text.cancel'), admin_payments_path %>
+    <%= f.submit %>
+  </section>
 <% end %>
 
 <script type="text/javascript">
