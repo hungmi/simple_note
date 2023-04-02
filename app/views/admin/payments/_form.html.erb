@@ -1,6 +1,6 @@
 <%= notice_message(payment.errors.full_messages, "danger") if payment.errors.any? %>
 <%= form_with model: [:admin, payment], local: true, class: "mb-5" do |f| %>
-  <div class="row">
+  <div class="row mb-5">
     <div class="offset-lg-3 col-lg-6">
       <% if payment.new_record? %>
         <div class="form-group">
