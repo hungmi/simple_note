@@ -2,7 +2,6 @@
     <main>
         <%= paginate @payments, window: 2 %>
 
-        <%#= render partial: "admin/payments/payment", collection: @payments, cached: true %>
         <%= render @payments %>
 
         <footer style="display: flex; justify-content: flex-end;">
@@ -51,7 +50,7 @@
 
 <%= render "filter" %>
 
-<footer style="padding: 1em;">
+<footer style="margin-bottom: 1em; padding: 1em 0;">
     本月總花費 <strong><%= Payment.where("created_at >= ?", Time.zone.today.at_beginning_of_month).outcome.sum(:total).to_i %></strong>
     <%= link_to "統計", summary_admin_payments_path, style: "margin-left: 20px;" %>
 </footer>

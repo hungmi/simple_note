@@ -1,7 +1,7 @@
-<nav>
-    <ul style="display: flex; justify-content: space-between;">
+<header style="padding-bottom: 1em;">
+    <nav>
         <% ["payment","project", "notebook"].each do |singular_name| %>
-            <li><a href="/admin/<%= singular_name.pluralize %>"><%= I18n.t("activerecord.models.#{singular_name}") %></a></li>
+            <a href="/admin/<%= singular_name.pluralize %>"><%= I18n.t("activerecord.models.#{singular_name}") %></a>
         <% end %>
-    </ul>
-</nav>
+    </nav>
+</header>

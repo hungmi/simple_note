@@ -1,49 +1,53 @@
 <%= search_form_for [:admin, @q] do |f| %>
-	<div class="form-row" data-controller="payments">
-    <div class="form-group col-lg-3 col-sm-4">
+	<div data-controller="payments">
+    <p>
       <%= f.label :action_text_rich_text_body_cont, I18n.t("text.filter.action_text_rich_text_body_cont") %>
-      <%= f.text_field :action_text_rich_text_body_cont, value: params[:q].try(:[], :action_text_rich_text_body_cont), class: "form-control form-control-sm" %>
-    </div>
-    <div class="form-group col-lg-3 col-sm-4 col-xs-6">
+      <%= f.text_field :action_text_rich_text_body_cont, value: params[:q].try(:[], :action_text_rich_text_body_cont) %>
+    </p>
+
+    <p>
       <%= f.label :created_at_gteq, "從" %>
-      <%= f.date_field :created_at_gteq, value: params[:q].try(:[], :created_at_gteq), max: params[:q].try(:[], :created_at_lteq) || (Time.zone.today - 1.day).strftime("%F"), class: "form-control form-control-sm", data: { target: "payments.minDate" } %>
-    </div>
-    <div class="form-group col-lg-3 col-sm-4 col-xs-6">
+      <%= f.date_field :created_at_gteq, value: params[:q].try(:[], :created_at_gteq), max: params[:q].try(:[], :created_at_lteq) || (Time.zone.today - 1.day).strftime("%F"), data: {target: "payments.minDate"} %>
+    </p>
+
+    <p>
       <%= f.label :created_at_lteq, "到" %>
-      <%= f.date_field :created_at_lteq, value: params[:q].try(:[], :created_at_lteq), min: params[:q].try(:[], :created_at_gteq), max: Time.zone.today.strftime("%F"), class: "form-control form-control-sm", data: { target: "payments.maxDate" } %>
-    </div>
-    <div class="form-group col-lg-3 col-sm-4 col-xs-6">
-      <select class="form-control" data-action="change->payments#setDateFilter">
+      <%= f.date_field :created_at_lteq, value: params[:q].try(:[], :created_at_lteq), min: params[:q].try(:[], :created_at_gteq), max: Time.zone.today.strftime("%F"), data: {target: "payments.maxDate"} %>
+    </p>
+
+    <p>
+      <select data-action="change->payments#setDateFilter">
         <option>選擇天數</option>
         <% [7, 14, 30, 60, 90, 180].each do |number| %>
           <option value="<%= number.days.ago.strftime('%Y-%m-%d') %>"><%= number %></option>
         <% end %>
       </select>
-    </div>
-    <div class="form-group col-12">
-      <div class="btn-group btn-group-toggle mt-3 pr-md-3" data-toggle="buttons">
-        <% Notebook.all.pluck(:name, :id).map do |name, id| %>
-          <label class="btn <%= id.to_s == params[:q].try(:[], :notebook_id_eq) ? 'btn-primary active' : 'btn-secondary' %>">
-            <%= radio_button_tag 'q[notebook_id_eq]', id, id.to_s == params[:q].try(:[], :notebook_id_eq) %> <%= name %>
-          </label>
-        <% end %>
-      </div>
-      <div class="btn-group btn-group-toggle mt-3 pr-md-3" data-toggle="buttons">
-        <% Project.all.pluck(:name, :id).map do |name, id| %>
-          <label class="btn <%= id.to_s == params[:q].try(:[], :project_id_eq) ? 'btn-primary active' : 'btn-secondary' %>">
-            <%= radio_button_tag 'q[project_id_eq]', id, id.to_s == params[:q].try(:[], :project_id_eq) %> <%= name %>
-          </label>
-        <% end %>
-      </div>
-      <div class="btn-group btn-group-toggle mt-3 pr-md-3" data-toggle="buttons">
-        <% User.all.pluck(:name, :id).map do |name, id| %>
-          <label class="btn <%= id.to_s == params[:q].try(:[], :recorder_id_eq) ? 'btn-primary active' : 'btn-secondary' %>">
-            <%= radio_button_tag 'q[recorder_id_eq]', id, id.to_s == params[:q].try(:[], :recorder_id_eq) %> <%= name %>
-          </label>
-        <% end %>
-      </div>
-    </div>
+    </p>
+
+    <p data-toggle="buttons" style="display: flex;">
+      <% Notebook.all.pluck(:name, :id).map do |name, id| %>
+        <label style="padding-left: 0.5em;">
+          <%= radio_button_tag 'q[notebook_id_eq]', id, id.to_s == params[:q].try(:[], :notebook_id_eq) %> <%= name %>
+        </label>
+      <% end %>
+    </p>
+
+    <p data-toggle="buttons" style="display: flex;">
+      <% Project.all.pluck(:name, :id).map do |name, id| %>
+        <label style="padding-left: 0.5em;">
+          <%= radio_button_tag 'q[project_id_eq]', id, id.to_s == params[:q].try(:[], :project_id_eq) %> <%= name %>
+        </label>
+      <% end %>
+    </p>
+
+    <p data-toggle="buttons" style="display: flex;">
+      <% User.all.pluck(:name, :id).map do |name, id| %>
+        <label style="padding-left: 0.5em;">
+          <%= radio_button_tag 'q[recorder_id_eq]', id, id.to_s == params[:q].try(:[], :recorder_id_eq) %> <%= name %>
+        </label>
+      <% end %>
+    </p>
   </div>
-  <%= link_to I18n.t("text.clear"), admin_payments_path, class: "btn btn-link text-danger btn-sm float-right" %>
-  <%#= f.submit I18n.t("text.apply"), class: "btn btn-secondary float-right btn-sm" %>
+
+  <%= link_to I18n.t("text.clear"), admin_payments_path %>
 <% end %>
