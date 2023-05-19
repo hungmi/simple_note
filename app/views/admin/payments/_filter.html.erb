@@ -24,7 +24,7 @@
       </select>
     </p>
 
-    <p data-toggle="buttons" style="display: flex;">
+    <p data-toggle="buttons" style="display: flex; flex-wrap: wrap;">
       <% Notebook.all.pluck(:name, :id).map do |name, id| %>
         <label style="padding-left: 0.5em;">
           <%= radio_button_tag 'q[notebook_id_eq]', id, id.to_s == params[:q].try(:[], :notebook_id_eq) %> <%= name %>
@@ -32,7 +32,7 @@
       <% end %>
     </p>
 
-    <p data-toggle="buttons" style="display: flex;">
+    <p data-toggle="buttons" style="display: flex; flex-wrap: wrap;">
       <% Project.all.pluck(:name, :id).map do |name, id| %>
         <label style="padding-left: 0.5em;">
           <%= radio_button_tag 'q[project_id_eq]', id, id.to_s == params[:q].try(:[], :project_id_eq) %> <%= name %>
@@ -40,7 +40,7 @@
       <% end %>
     </p>
 
-    <p data-toggle="buttons" style="display: flex;">
+    <p data-toggle="buttons" style="display: flex; flex-wrap: wrap;">
       <% User.all.pluck(:name, :id).map do |name, id| %>
         <label style="padding-left: 0.5em;">
           <%= radio_button_tag 'q[recorder_id_eq]', id, id.to_s == params[:q].try(:[], :recorder_id_eq) %> <%= name %>
