@@ -1,8 +1,7 @@
-<nav class="container-fluid">
-    <ul>
+<nav>
+    <ul style="display: flex; justify-content: space-between;">
         <% ["payment","project", "notebook"].each do |singular_name| %>
-            <li><a href="/admin/<%= singular_name.pluralize %>" class="secondary"><%= I18n.t("activerecord.models.#{singular_name}") %></a></li>
+            <li><a href="/admin/<%= singular_name.pluralize %>"><%= I18n.t("activerecord.models.#{singular_name}") %></a></li>
         <% end %>
-        <li><a href="/admin/more_links" class="secondary">更多</a></li>
     </ul>
 </nav>
